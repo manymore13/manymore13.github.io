@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://manymore13.github.io/UML%E7%B1%BB%E5%9B%BE%E5%85%B3%E7%B3%BB/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>UML类图关系 - manymore13</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">manymore13</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="nav-link">技术</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../%E9%87%91%E8%9E%8D%E5%88%86%E4%BA%AB/" class="nav-link">金融</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">继承(泛化)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_2" class="nav-link">实现</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_3" class="nav-link">依赖</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_4" class="nav-link">关联</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_5" class="nav-link">聚合</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_6" class="nav-link">组合</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_7" class="nav-link">依赖与关联的区别</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_8" class="nav-link">关系整合图</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_9" class="nav-link">参考链接</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p>在UML类图中，常见的有以下几种关系: </p>
+<h1 id="_1">继承(泛化)</h1>
+<p>继承也被称为Is-A关系, 自行车是车、猫是动物</p>
+<p>表示：泛化关系用一条带空心箭头的直接表示</p>
+<p><img src="./img/3424242343.jpg" width="50%" /></p>
+<h1 id="_2">实现</h1>
+<p>接口实现</p>
+<p><img src="./img/1582868458sadasda.jpg" width="50%" /></p>
+<h1 id="_3">依赖</h1>
+<p>Uses-A 关系</p>
+<p>它用于定义一个类以某种方式依赖于另一个类，而另一个类可能依赖于或不依赖于第一个类。通常，在面向对象的编程语言中，依赖关系用于描述一个类在方法的声明中是否包含第二个类的参数，或者说它只是通过方法将第二个类传递给其他类，而不是使用方法来创建第二个类的实例。</p>
+<p>依赖也有方向，双向依赖是一种非常糟糕的结构，我们总是应该保持单向依赖，杜绝双向依赖的产生；</p>
+<p>在最终代码中，依赖关系体现为<strong>类构造方法</strong>及<strong>类方法</strong>的传入参数，箭头的指向为调用关系；依赖关系除了临时知道对方外，还是“使用”对方的方法和属性；</p>
+<p>表示：依赖关系是用一套带箭头的虚线表示的。B依赖于A，描述一个对象在运行期间会用到另一个对象的关系</p>
+<p><img src="./img/457769fd.jpg" width="50%" /></p>
+<h1 id="_4">关联</h1>
+<p>Has-A关系</p>
+<p>关联表示两个实体之间的关系。有两种类型的关联：组合和聚合。通常，关联关系由箭头表示。</p>
+<p>如果特别强调方向，如下图，表示B知道A，但 A不知道B；</p>
+<p><img src="./img/43545432da.jpg" width="50%" /></p>
+<h1 id="_5">聚合</h1>
+<p>整体和部分不是强依赖的。</p>
+<p>一个类在逻辑上包含另一个类，但所包含的类的实例又可以独立于第一个类在其上下文之外生存，或者可以被其他的类所引用。</p>
+<p>例如，部门与教师间存在Has-A关系，每位教师必须属于部门，但如果部门不再存在，教师仍然可以处于活动状态,</p>
+<p>老师聚合到部门上，或者部门由老师组成。</p>
+<p>表示：聚合关系用一条带空心菱形箭头的直线表示</p>
+<p><img src="./img/4534534fjsd.jpg" width="50%" /></p>
+<h1 id="_6">组合</h1>
+<p>一个类是另一个类的组成部分就称两者间存在组合关系。这有点类似于聚合，不同之处在于当主类不再存在时，依赖类不再存在。例如，房子（House）由房间（Room）组成，但如果房子被销毁，房间就不再存在，</p>
+<p>表示：组合关系用一条带实心菱形箭头直线表示。</p>
+<p><img src="./img/4564645656fscas.jpg" width="50%" /></p>
+<h1 id="_7">依赖与关联的区别</h1>
+<p>关联：互相贯连的意思，是比较强的关系，是长期关系。
+类A关联B的含义是：如果实例化一个A类的对象，同时会有一个B类的对象被实例化。</p>
+<p>依赖：成瘾的意思，玩游戏上瘾，你也可以戒掉，所以依赖只是临时关系</p>
+<h1 id="_8">关系整合图</h1>
+<p>来源于网上
+<img src="./img/9dc3cf58ccbf6c81a82b426bb53eb13532fa40d1.png" width="100%" /></p>
+<h1 id="_9">参考链接</h1>
+<ol>
+<li><a href="https://design-patterns.readthedocs.io/zh_CN/latest/read_uml.html#id2">看懂UML类图和时序图</a></li>
+<li><a href="https://jingyan.baidu.com/article/ad310e80f7d5c01848f49e6b.html">UML类图几种关系的总结（图文并茂、案例详解）</a></li>
+<li><a href="https://www.jianshu.com/p/fe949c2f081a">继承、实现、依赖、关联、聚合、组合的联系与区别</a></li>
+<li><a href="https://blog.csdn.net/ochangwen/article/details/72621702">UML类图关系(泛化 、实现、依赖、关联、聚合、组合)</a></li>
+<li><a href="https://www.cnblogs.com/olvo/archive/2012/05/03/2481014.html">UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合）</a></li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

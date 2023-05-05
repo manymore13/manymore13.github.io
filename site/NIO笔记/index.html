@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://manymore13.github.io/NIO%E7%AC%94%E8%AE%B0/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>NIO笔记 - manymore13</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">manymore13</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="nav-link">技术</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../%E9%87%91%E8%9E%8D%E5%88%86%E4%BA%AB/" class="nav-link">金融</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#nio" class="nav-link">NIO笔记</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#bio" class="nav-link">BIO</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#java-nio" class="nav-link">java NIO基本介绍</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#nio-bio" class="nav-link">NIO 和 BIO 的比较</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#nio_1" class="nav-link">NIO 三大核心原理示意图</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="nio">NIO笔记</h1>
+<h2 id="bio">BIO</h2>
+<p>输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。</p>
+<h2 id="java-nio">java NIO基本介绍</h2>
+<ol>
+<li>
+<p>Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。
+从 JDK1.4 开始，Java 提供了一系列改进的输入/输出的新特性，被统称为 NIO(即 New IO)，是<strong>同步非阻塞</strong>的</p>
+</li>
+<li>
+<p>NIO 有三大核心部分：Channel(通道)，Buffer(缓冲区), Selector(选择器) </p>
+</li>
+<li>
+<p>NIO是 面向缓冲区 ，或者面向 块 编程的。数据读取到一个它稍后处理的缓冲区，
+需要时可在缓冲区中前后移动，这就增加了处理过程中的灵活性，使用它可以提供非阻塞式的高伸缩性网络</p>
+</li>
+</ol>
+<h2 id="nio-bio">NIO 和 BIO 的比较</h2>
+<ol>
+<li>BIO 以流的方式处理数据,而 NIO 以块的方式处理数据,块 I/O 的效率比流 I/O 高很多</li>
+<li>BIO 是阻塞的，NIO 则是非阻塞的</li>
+<li>BIO基于字节流和字符流进行操作，而 NIO 基于 Channel(通道)和 Buffer(缓冲区)进行操作，数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中。Selector(选择器)用于监听多个通道的事件（比如：连接请求，数据到达等），因此使用单个线程就可以监听多个客户端通道 </li>
+</ol>
+<h2 id="nio_1">NIO 三大核心原理示意图</h2>
+<p><img alt="nio原理图" src="../img/nioylt.png" /></p>
+<ol>
+<li>每个channel 都会对应一个Buffer</li>
+<li>Selector 对应一个线程， 一个线程对应多个channel(连接)</li>
+<li>该图反应了有三个channel 注册到 该selector //程序</li>
+<li>程序切换到哪个channel 是有事件决定的, Event 就是一个重要的概念</li>
+<li>Selector 会根据不同的事件，在各个通道上切换</li>
+<li>Buffer 就是一个内存块 ， 底层是有一个数组</li>
+<li>数据的读取写入是通过Buffer, 这个和BIO , BIO 中要么是输入流，或者是输出流, 不能双向，但是NIO的Buffer 是可以读也可以写, 需要 flip 方法切换</li>
+<li>channel 是双向的, 可以返回底层操作系统的情况, 比如Linux ， 底层的操作系统通道就是双向的.</li>
+</ol>
+<h3 id="buffer">缓冲区(Buffer)</h3>
+<p>缓冲区本质上是一个可以读写数据的内存块，可以理解成是一个容器对象(含数组)，该对象提供了一组方法，可以更轻松地使用内存块，
+缓冲区对象内置了一些机制，能够跟踪和记录缓冲区的状态变化情况。
+Channel 提供从文件、网络读取数据的渠道，但是读取或写入的数据都必须经由 Buffer</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capacity</td>
+<td>容量，即可以容纳的最大数据量；在缓冲区创建时被设定并且不能改变</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>表示缓冲区的当前终点，不能对缓冲区超过极限的位置进行读写操作。且极限是可以修改的</td>
+</tr>
+<tr>
+<td>Position　</td>
+<td>位置，下一个要被读或写的元素的索引，每次读写缓冲区数据时都会改变改值，为下次读写作准备</td>
+</tr>
+<tr>
+<td>Mark</td>
+<td>标记</td>
+</tr>
+</tbody>
+</table>
+<h3 id="channel">通道(Channel)</h3>
+<ol>
+<li>NIO的通道类似于流，但有些区别如下：</li>
+<li>通道可以同时进行读写，而流只能读或者只能写</li>
+<li>通道可以实现异步读写数据</li>
+<li>通道可以从缓冲读数据，也可以写数据到缓冲: </li>
+<li>BIO 中的 stream 是单向的，例如 FileInputStream 对象只能进行读取数据的操作，而 NIO 中的通道(Channel)是双向的，可以读操作，也可以写操作。</li>
+<li>常用的 Channel 类有：FileChannel、DatagramChannel、ServerSocketChannel 和 SocketChannel。【ServerSocketChanne 类似 ServerSocket , SocketChannel 类似 Socket】</li>
+<li>FileChannel 用于文件的数据读写，DatagramChannel 用于 UDP 的数据读写，ServerSocketChannel 和 SocketChannel 用于 TCP 的数据读写。</li>
+</ol>
+<h4 id="filechannel">FileChannel 类</h4>
+<ul>
+<li>FileChannel主要用来对本地文件进行 IO 操作，常见的方法有</li>
+<li>public int read(ByteBuffer dst) ，从通道读取数据并放到缓冲区中</li>
+<li>public int write(ByteBuffer src) ，把缓冲区的数据写到通道中</li>
+<li>public long transferFrom(ReadableByteChannel src, long position, long count)，从目标通道中复制数据到当前通道</li>
+<li>public long transferTo(long position, long count, WritableByteChannel target)，把数据从当前通道复制给目标通道</li>
+</ul>
+<h4 id="nio_2">利用nio拷贝文件</h4>
+<pre><code class="language-java">    public static void main(String[] args) throws Exception {
+
+        FileInputStream fileInputStream = new FileInputStream(&quot;1.txt&quot;);
+        FileChannel fileChannel01 = fileInputStream.getChannel();
+
+        FileOutputStream fileOutputStream = new FileOutputStream(&quot;2.txt&quot;);
+        FileChannel fileChannel02 = fileOutputStream.getChannel();
+
+        ByteBuffer byteBuffer = ByteBuffer.allocate(512);
+        //循环读取
+        while (true) { 
+
+            //这里有一个重要的操作，一定不要忘了
+            /*
+             public final Buffer clear() {
+                position = 0;
+                limit = capacity;
+                mark = -1;
+                return this;
+            }
+             */
+            byteBuffer.clear(); //清空buffer
+            int read = fileChannel01.read(byteBuffer);
+            System.out.println(&quot;read =&quot; + read);
+            //表示读完
+            if(read == -1) { 
+                break;
+            }
+            //将buffer 中的数据写入到 fileChannel02 -- 2.txt
+            byteBuffer.flip();
+            fileChannel02.write(byteBuffer);
+        }
+
+        //关闭相关的流
+        fileInputStream.close();
+        fileOutputStream.close();
+    }
+</code></pre>
+<h4 id="transferfrom">拷贝文件transferFrom 方法</h4>
+<pre><code class="language-java">public static void main(String[] args)  throws Exception {
+
+        //创建相关流
+        FileInputStream fileInputStream = new FileInputStream(&quot;d:\\a.jpg&quot;);
+        FileOutputStream fileOutputStream = new FileOutputStream(&quot;d:\\a2.jpg&quot;);
+
+        //获取各个流对应的filechannel
+        FileChannel sourceCh = fileInputStream.getChannel();
+        FileChannel destCh = fileOutputStream.getChannel();
+
+        //使用transferForm完成拷贝
+        destCh.transferFrom(sourceCh,0,sourceCh.size());
+        //关闭相关通道和流
+        sourceCh.close();
+        destCh.close();
+        fileInputStream.close();
+        fileOutputStream.close();
+    }
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

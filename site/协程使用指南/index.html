@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://manymore13.github.io/%E5%8D%8F%E7%A8%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>协程使用指南 - manymore13</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">manymore13</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="nav-link">技术</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../%E9%87%91%E8%9E%8D%E5%88%86%E4%BA%AB/" class="nav-link">金融</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">协程使用指南</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">协程介绍</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link">协程的用法</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#flow" class="nav-link">Flow</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_6" class="nav-link">参考链接</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">协程使用指南</h1>
+<h2 id="_2">协程介绍</h2>
+<blockquote>
+<p>协程是一种并发设计模式，是一套基于线程来实现的API，可以看作是轻量级线程。
+协程的一个好处是，当涉及到开发人员时，编写非阻塞代码与编写阻塞代码基本相同。编程模型本身并没有真正改变。</p>
+</blockquote>
+<pre><code class="language-kotlin">implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+// 可选 Android中使用协程
+implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+</code></pre>
+<h2 id="_3">协程的用法</h2>
+<h3 id="_4">创建一个协程，并执行</h3>
+<pre><code class="language-kotlin">import kotlinx.coroutines.*
+
+fun main() {
+    // 在后台启动一个新的协程并执行
+    GlobalScope.launch { 
+        // 非阻塞的等待 1 秒钟（默认时间单位是毫秒）
+        delay(1000L) 
+        // 在延迟后打印输出
+        println(&quot;World!&quot;) 
+
+    }
+    // 协程已在等待时主线程还在继续
+    println(&quot;Hello,&quot;) 
+    // 阻塞主线程 2 秒钟来保证 JVM 存活
+    Thread.sleep(2000L) 
+}
+</code></pre>
+<p>代码运行的结果：</p>
+<pre><code class="language-kotlin">Hello,
+World!
+</code></pre>
+<p>我们使用<strong>GlobalScope.launch</strong>创建一个协程，并执行它，后面大括号里包着的是协程要执行的内容，类似于线程中的run方法体。</p>
+<ul>
+<li><strong>delay</strong>方法只能在协程内部使用，它用于挂起协程，但是不会阻塞当前协程所在的线程。</li>
+<li><strong>Thread.sleep</strong>会阻塞当前线程，也就是说当前线程被阻塞在那暂时不能做别的事情了</li>
+</ul>
+<hr />
+<p>关于协程的方法只能在协程体里面执行，所以为了方便测试协程代码，我准备使用<strong>runBlocking</strong>把main方法包起来。</p>
+<pre><code class="language-kotlin">/*
+ *显式指定了其返回类型 Unit，
+ * 因为在 Kotlin 中 main 函数必须返回 Unit 类型。
+ */
+fun main()= runBlocking&lt;Unit&gt; {
+    // 打印当前线程名称
+    println(Thread.currentThread().name)
+}
+</code></pre>
+<p>执行结果：</p>
+<pre><code class="language-kotlin">main
+</code></pre>
+<p>runBlocking方法运行一个新的协程并且阻塞当前线程，上面的代码中包裹的是main方法，所以阻塞的是main线程</p>
+<h3 id="_5">协程挂起</h3>
+<blockquote>
+<p>我们用suspend修饰符来标记函数
+挂起函数只被允许在协程或另一个挂起函数中调用</p>
+</blockquote>
+<p>我们先看一个先获取token，再登录的例子，里面用到挂起函数</p>
+<pre><code class="language-kotlin">import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
+
+/*
+ * main函数
+ */
+fun main()= runBlocking&lt;Unit&gt; {
+    var time = measureTimeMillis{
+        val token = getToken()
+        val loginInfo = login(token)
+        println(loginInfo)
+    }
+    println(&quot;Completed in $time ms&quot;)
+}
+
+/**
+ * 模拟接口获取token
+ */
+suspend fun getToken():String{
+    delay(1000L)
+    return &quot;woshitoken&quot;
+}
+
+/**
+ * 模拟接口登录
+ */
+suspend fun login(token:String):String {
+    delay(1000L)
+    return &quot;my token is: $token , login success&quot;
+}
+
+</code></pre>
+<p>执行结果：</p>
+<pre><code class="language-kotlin">my token is: woshitoken , login success
+Completed in 2012 ms
+</code></pre>
+<ul>
+<li>我对挂起的理解：<blockquote>
+<p>在上面的代码中有两个挂起函数getToken和login，当程序逻辑走到挂起函数getToken()那里，当前协程被挂起,getToken()被抛出去执行，你可以指定在哪一个线程池中执行，当getToken在外部执行完后再恢复刚才挂起的协程，协程代码继续执行。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="async">async 并发</h3>
+<blockquote>
+<p>在概念上，async 就类似于 launch。它启动了一个单独的协程，这是一个轻量级的线程并与其它所有的协程一起并发的工作。不同之处在于 launch 返回一个 Job 并且不附带任何结果值，而 async 返回一个 Deferred —— 一个轻量级的非阻塞 future， 这代表了一个将会在稍后提供结果的 promise。你可以使用 .await() 在一个延期的值上得到它的最终结果， 但是 Deferred 也是一个 Job，所以如果需要的话，你可以取消它。<a href="https://www.kotlincn.net/docs/reference/coroutines/composing-suspending-functions.html#%E4%BD%BF%E7%94%A8-async-%E5%B9%B6%E5%8F%91">转自 kotlincn.net</a></p>
+</blockquote>
+<pre><code class="language-kotlin">import kotlinx.coroutines.*
+import kotlin.system.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+    val time = measureTimeMillis {
+        val one = async { doSomethingUsefulOne() }
+        val two = async { doSomethingUsefulTwo() }
+        println(&quot;The answer is ${one.await() + two.await()}&quot;)
+    }
+    println(&quot;Completed in $time ms&quot;)    
+}
+
+suspend fun doSomethingUsefulOne(): Int {
+    // 假设我们在这里做了些有用的事
+    delay(1000L) 
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    // 假设我们在这里也做了些有用的事
+    delay(1000L) 
+    return 29
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code class="language-kotlin">The answer is 42
+Completed in 1055 ms
+</code></pre>
+<p>两个协程是并发执行。
+<a href="https://www.kotlincn.net/docs/reference/coroutines/composing-suspending-functions.html#%E6%83%B0%E6%80%A7%E5%90%AF%E5%8A%A8%E7%9A%84-async">惰性启动的-async</a></p>
+<h2 id="flow">Flow</h2>
+<h2 id="_6">参考链接</h2>
+<p><a href="https://www.kotlincn.net/docs/reference/coroutines/coroutines-guide.html">官方协程指南</a>
+<a href="https://kaixue.io/kotlin-coroutines-2/">kaixue</a>
+<a href="https://juejin.im/post/6844903921337516040">如何正确的在 Android 上使用协程 ？</a>
+<a href="https://www.bennyhuo.com/2020/03/14/coroutine-flow/">协程博客</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

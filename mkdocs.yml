@@ -1,0 +1,5 @@
+site_name: manymore13
+site_url: https://manymore13.github.io/
+nav:
+    - 技术: 技术分享.md
+    - 金融: 金融分享.md

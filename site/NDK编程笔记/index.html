@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://manymore13.github.io/NDK%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>NDK编程笔记 - manymore13</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">manymore13</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="nav-link">技术</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../%E9%87%91%E8%9E%8D%E5%88%86%E4%BA%AB/" class="nav-link">金融</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#ndk" class="nav-link">NDK编程笔记</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#ffmpeg" class="nav-link">FFMpeg国内镜像</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">参考链接</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">概念</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link">编译流程</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_4" class="nav-link">静态库与动态库</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cmake" class="nav-link">CMake使用</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cmake_1" class="nav-link">编译工具(推荐使用CMake)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_5" class="nav-link">命令</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#javac" class="nav-link">java调用C</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cjava" class="nav-link">C调用java</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#bug" class="nav-link">BUG</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="ndk">NDK编程笔记</h1>
+<h2 id="ffmpeg"><a href="https://gitee.com/mirrors/ffmpeg">FFMpeg国内镜像</a></h2>
+<h2 id="_1">参考链接</h2>
+<ol>
+<li><a href="https://developer.android.google.cn/ndk/guides">NDK指南</a></li>
+<li><a href="https://developer.android.google.cn/ndk/reference">NDK库Api</a></li>
+<li><a href="https://developer.android.google.cn/ndk/samples">官方例子</a></li>
+<li><a href="https://blog.csdn.net/han1202012/category_9493908.html">Android NDK 开发-韩曙亮</a></li>
+<li><a href="https://blog.csdn.net/u011609853/article/details/105648099">NDK r21编译FFmpeg 4.2.2（x86、x86_64、armv7、armv8）</a></li>
+<li><a href="https://github.com/Javernaut/ffmpeg-android-maker">ffmpeg-android-maker</a>,<a href="https://github.com/Javernaut/ffmpeg-android-maker/wiki/Setting-the-FFmpeg-version">wiki</a>
+推荐使用这个脚本编译FFmpeg</li>
+</ol>
+<pre><code class="language-shell">./ffmpeg-android-maker.sh -abis=x86_64 -android=21 --source-git-branch=release/4.2.3
+</code></pre>
+<ol>
+<li><a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Android">wikiCompilationGuide/Android</a> </li>
+<li><a href="https://trac.ffmpeg.org/wiki/CompilationGuide/Generic">FFmpeg官方WIKI</a></li>
+<li><a href="https://blog.csdn.net/lbcab/article/details/72771729">Android gradle SourceSets介绍与使用</a></li>
+<li><a href="https://blog.csdn.net/chaoqiangscu/article/details/83023762">Android：JNI调用C++自定义类的详细方法</a></li>
+</ol>
+<h2 id="_2">概念</h2>
+<ol>
+<li>NDK是什么？
+一套可以帮助你把原生代码(c/c++)嵌入到Android应用中的工具</li>
+<li>适用性
+重用已经有的原生库，计算密集型应用用原生代码可以提高性能，比如游戏</li>
+<li><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/jniTOC.html">JNI ORACLE官方介绍</a></li>
+<li><a href="https://blog.csdn.net/u013278099/article/details/52003759">了解JNI动态注册native方法</a>   </li>
+</ol>
+<h2 id="_3">编译流程</h2>
+<pre><code class="language-mermaid">graph LR
+A(预处理)--&gt;B(编译)
+B--&gt;C(汇编)
+C--&gt;D(链接)
+</code></pre>
+<ul>
+<li><strong>预处理(Preprocessing)</strong>
+   完成宏替换，文件引入，以及去除空行，注释等，为下一步编译做准备。也就是对各种预处理命令进行处理，包括头文件的包含，宏定义的扩展，条件编译的选择等。
+    <code>shell
+    gcc -E test.c -o test.i</code>
+选项-E让gcc在预处理结束后停止编译，test.i文件为预处理后输出的文件。-o指定输出文件</li>
+<li>
+<p><strong>编译(Compilation)</strong>
+<img alt="编译" src="../img/%E7%BC%96%E8%AF%91.png" /><br />
+<code>shell
+    gcc -S test.i -o test.s</code>
+选项-S让gcc在编译结束后停止编译过程,test.s文件为编译后生成的汇编代码。</p>
+</li>
+<li>
+<p><strong>汇编</strong>
+  汇编就是把编译阶段生成的.s文件转成二进制<strong>目标代码</strong>，也就是机器代码(01序列)。
+    <code>shell
+    gcc -c test.s -o test.o</code>
+选项-c让gcc在汇编结束后停止编译过程，test.o文件为生成的机器码目标文件。</p>
+</li>
+<li>
+<p><strong>链接</strong>
+链接就是将多个目标文件以及所需的库文件链接生成可执行目标文件的过程。
+    <code>shell
+    gcc test.o -o test</code>
+    -o本质上是一个重命名选项。不使用-o选项时，默认生成的是a.out文件</p>
+</li>
+<li><strong>一次性生成可执行文件</strong>
+  <code>shell
+  gcc -o test test.c</code></li>
+</ul>
+<h2 id="_4">静态库与动态库</h2>
+<p><a href="https://www.cnblogs.com/codingmengmeng/p/6046481.html">静态库和动态库的区别</a></p>
+<h2 id="cmake">CMake使用</h2>
+<p><a href="https://blog.csdn.net/bigdog_1027/article/details/79113342">cmake学习笔记之add_library、target_link_libraries和link_directories</a>
+<a href="https://www.jianshu.com/p/e51547d288fd">FFmpeg（四）：CMake移植FFmpeg的静态库到AndroidStudio中</a></p>
+<h2 id="cmake_1">编译工具(推荐使用CMake)</h2>
+<ol>
+<li><a href="https://blog.csdn.net/xiaoyu_93/article/details/53082088">CMake,Ndkbuild不同配置方法以及区别</a>   </li>
+<li><a href="https://developer.android.google.cn/studio/projects/configure-cmake#add-ndk-api">配置CMake-官方</a></li>
+<li><a href="https://developer.android.google.cn/studio/projects/configure-cmake#add-ndk-api">如何添加NDK API</a>
+添加ndk中的日志打印库</li>
+</ol>
+<pre><code class="language-java">cmake_minimum_required(VERSION 3.4.1)
+include_directories( src/main/cpp/include/ )
+
+add_library(hello-jni SHARED
+            src/main/cpp/Hello.c)
+
+add_library(callC SHARED
+        src/main/cpp/javaCallC.c)
+
+add_library(calljava SHARED
+        src/main/cpp/cCallJava.cpp)
+
+find_library(log-lib
+        log)
+
+# Include libraries needed for hello-jni lib
+target_link_libraries(hello-jni
+                      android
+                      log)
+target_link_libraries( calljava  ${log-lib} )
+</code></pre>
+<p>具体配置介绍参考 <a href="https://developer.android.google.cn/studio/projects/configure-cmake#add-ndk-api">配置CMake-官方</a></p>
+<h2 id="_5">命令</h2>
+<ol>
+<li>生成头文件:javah -d 存放的目录　完整类</li>
+<li>查看方法签名:javap　-s 完整类</li>
+<li>kotlin类头文件生成必须要到 路径(app/build/tmp/kotlin-classes/debug)下javah </li>
+</ol>
+<pre><code class="language-java">javap -s com.cn.katefm.jni.CcallJava
+</code></pre>
+<h2 id="javac">java调用C</h2>
+<p>直接看源码
+java或者kotlin要调用ｃ/c++函数，必须声明native方法
+他们用的关键字不一样。</p>
+<pre><code class="language-kotlin">package com.cn.katefm.jni
+
+/**
+ * c代码调用java代码
+ * 查看该类所有方法签名
+ * ~/AndroidStudioProjects/KateFM/app/build/tmp/kotlin-classes/debug$ javap -s com.cn.katefm.jni.CcallJava
+ */
+class CcallJava {
+
+    init {
+        System.loadLibrary(&quot;calljava&quot;)
+    }
+
+    external fun cCallmultiply(a: Int, b: Int):Int
+
+    /**
+     * 乘法运算
+     */
+    fun multiply(a: Int, b: Int) = a * b
+
+}
+</code></pre>
+<pre><code class="language-java">package com.cn.katefm.jni;
+
+/**
+ * java代码调用C代码
+ */
+public class JavaCallC {
+
+    static {
+        System.loadLibrary(&quot;callC&quot;);
+    }
+
+    /**
+     * 两数想家
+     * @param x
+     * @param y
+     * @return
+     */
+    public native int add(int x, int y);
+
+    /**
+     * 字符串拼接
+     * @param s
+     * @return
+     */
+    public native String sayHello(String s);
+
+    /**
+     * 修改字符串值并返回
+     * @param intArray
+     * @return
+     */
+    public native int[] increaseArrayEles(int[] intArray);
+
+    /**
+     * 密码检验
+     * @param pwd 密码
+     * @return
+     */
+    public native int checkPwd(String pwd);
+}
+
+</code></pre>
+<pre><code class="language-c++">//
+// Created by manymore13 on 20-6-15.
+//
+// https://developer.android.com/studio/projects/configure-cmake
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;jni.h&gt;
+#include &lt;string.h&gt;
+#include &quot;com_cn_katefm_jni_JNI.h&quot;
+
+
+jint Java_com_cn_katefm_jni_JavaCallC_add
+        (JNIEnv *env, jobject jobj, jint x, jint y) {
+    return x + y;
+};
+
+jstring Java_com_cn_katefm_jni_JavaCallC_sayHello
+        (JNIEnv *env, jobject jobj, jstring str) {
+    char *jniStr = &quot;我是jni&quot;;
+    const char *jStr = (*env)-&gt;GetStringUTFChars(env, str, 0);
+    jniStr = strcat(jniStr, jStr);
+    return (*env)-&gt;NewStringUTF(env, jniStr);
+};
+
+JNIEXPORT jintArray JNICALL Java_com_cn_katefm_jni_JavaCallC_increaseArrayEles
+        (JNIEnv *env, jobject jobj, jintArray jArray) {
+    int len = (*env)-&gt;GetArrayLength(env, jArray);
+    jint *jIntArray = (*env)-&gt;GetIntArrayElements(env, jArray, JNI_FALSE);
+    jintArray resultArray = (*env)-&gt;NewIntArray(env, len);
+    for (int i = 0; i &lt; len; i++) {
+        jint *current = jIntArray + i;
+        *current = +10;
+    }
+    (*env)-&gt;SetIntArrayRegion(env, resultArray, 0, len, jIntArray);
+    return resultArray;
+};
+
+JNIEXPORT jint JNICALL Java_com_cn_katefm_jni_JavaCallC_checkPwd
+        (JNIEnv *env, jobject jobj, jstring passWord) {
+    const char *origin = &quot;123456&quot;;
+    const char *userPassWord = (*env)-&gt;GetStringUTFChars(env, passWord, JNI_FALSE);
+    int code = strcmp(origin, userPassWord);
+    if (code == 0) {
+        return 200;
+    } else {
+        return 400;
+    }
+};
+
+
+
+
+</code></pre>
+<h2 id="cjava">C调用java</h2>
+<pre><code class="language-c++">//
+// Created by manymore13 on 20-6-16.
+//
+
+#include &quot;com_cn_katefm_jni_CcallJava.h&quot;
+#include &lt;iostream&gt;
+#include &lt;android/log.h&gt;
+
+#define  LOG_TAG  &quot;test&quot;
+#define LOGI(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#define LOGD(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
+extern &quot;C&quot; JNIEXPORT jint JNICALL Java_com_cn_katefm_jni_CcallJava_cCallmultiply
+        (JNIEnv *env, jobject jobj, jint a, jint b) {
+    //1. 得到字节码
+    jclass jclazz = (env)-&gt;FindClass(&quot;com/cn/katefm/jni/CcallJava&quot;);
+    //2. 得到方法
+    jmethodID jmethodId = env-&gt;GetMethodID(jclazz, &quot;multiply&quot;, &quot;(II)I&quot;);
+    //3.实例化该类语言打印日志
+    //jobject  jobject = env-&gt;AllocObject(jclazz);
+    //4.调用该方法
+    LOGD(&quot;我是日志打印&quot;);
+    return env-&gt;CallIntMethod(jobj,jmethodId,a,b);
+
+}
+</code></pre>
+<p>native层调用java层弹Toast</p>
+<pre><code class="language-java">jclass jclazz = env-&gt;FindClass(&quot;com/cn/katefm/MainActivity&quot;);
+    jmethodID jmethodId = env-&gt;GetMethodID(jclazz, &quot;showToast&quot;, &quot;(Ljava/lang/String;)V&quot;);
+    env-&gt;CallVoidMethod(thiz, jmethodId, str);
+</code></pre>
+<h2 id="bug">BUG</h2>
+<ol>
+<li><a href="https://blog.csdn.net/guyuealian/article/details/78310025">解决Error: undefined reference to `__android_log_print'</a></li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
