@@ -2,6 +2,7 @@ site_name: manymore13
 site_url: https://manymore13.github.io/
 site_dir: docs
 docs_dir: posts
+use_directory_urls: false
 nav:
     - 技术: 技术分享.md
     - 金融: 金融分享.md
