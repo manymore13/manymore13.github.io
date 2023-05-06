@@ -4,7 +4,6 @@ site_dir: docs
 docs_dir: posts
 use_directory_urls: false
 copyright: Copyright © 2023 
-repo_url: https://github.com/manymore13
 site_description: blog
 site_author : manymore13
 nav:
