@@ -19,8 +19,4 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-<<<<<<< HEAD
   - pymdownx.superfences
-=======
-  - pymdownx.superfences
->>>>>>> ee5655317a20bfb299f4d529a9d4416010ddb33e
