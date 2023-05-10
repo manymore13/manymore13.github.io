@@ -11,3 +11,12 @@ theme:
 nav:
     - 技术: 技术分享.md
     - 金融: 金融分享.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
