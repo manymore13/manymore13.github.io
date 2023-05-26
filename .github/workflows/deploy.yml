@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: bimbimprasetyoafif/pelican-simple@v1
+    - uses: iranzo/gh-pages-pelican-action@v1.0.3
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         GH_PAGES_CNAME: gh-pages
