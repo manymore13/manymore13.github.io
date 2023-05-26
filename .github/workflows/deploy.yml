@@ -9,9 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - run: pip install -r requirements.txt
-    - uses: iranzo/gh-pages-pelican-action@1.0.3
-      with:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        GH_PAGES_CNAME: gh-pages
+      - run: pip install -r requirements.txt
+      - uses: iranzo/gh-pages-pelican-action@1.0.3
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_PAGES_CNAME: gh-pages
     
