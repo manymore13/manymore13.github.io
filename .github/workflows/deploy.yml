@@ -17,6 +17,9 @@ jobs:
           python-version: '3.11'
       - run: git pull    
       - run: pip install -r requirements.txt
+      - run: cd pelican-themes
+      - run: pelican-themes -i bootstrap
+      - run: cd ..
       - run: pelican posts -o output -s pelicanconf.py
       - run: ghp-import output -b gh-pages
       - run: git push origin gh-pages
