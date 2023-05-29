@@ -1,6 +1,6 @@
 Title: Android面试题整理
 Date: 2020-2-7 18:23:53
-Category: Android
+Category: 计算机
 Tags:Android,面试
 
 # Android面试题整理

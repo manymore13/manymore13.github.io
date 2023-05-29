@@ -1,4 +1,9 @@
 
+Title: UML类图关系
+Date: 2020-1-8 18:23:53
+Category: 计算机
+Tags:UML
+
 在UML类图中，常见的有以下几种关系: 
 # 继承(泛化)
 
