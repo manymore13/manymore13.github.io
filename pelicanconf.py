@@ -18,8 +18,15 @@ AUTHOR_FEED_RSS = None
 # Blogroll
 LINKS = (('Github', 'https://github.com/manymore13'),)
 
+# TEMPLATE_PAGES = {'src/guzaixingjiabi.html': 'dest/books.html',
+#                   'src/resume.html': 'dest/resume.html',
+#                   'src/contact.html': 'dest/contact.html'}
+
+DEFAULT_CATEGORY = ''
+
+DISPLAY_PAGES_ON_MENU = False
 # Social widget
-# SOCIAL = (('You can add links in your config file', '#'),
+# SOCIAL = (('You can add links in your config file', 'https://app.jiucaishuo.com/pagesE/fed_new/index'),
 #           ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = False
