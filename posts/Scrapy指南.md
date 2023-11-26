@@ -12,5 +12,5 @@
 
 #### Pipeline使用  
 [数据存储到Excel](https://blog.csdn.net/weixin_43060843/article/details/90264685)  
-[scrapy抓取多个item 返回pipeline的处理](https://blog.csdn.net/vample/article/details/84955590)
+
 
