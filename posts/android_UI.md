@@ -21,7 +21,7 @@ motionLayout.transitionToEnd()
 [Blurry](https://github.com/wasabeef/Blurry)
 
 # 按钮点击时增加动画效果
-1. 点击时播放动画,监听事件执行对应动画，扩展性不好
+1. 点击时播放动画,监听事件执行对应动画，扩展性不好   
   [安卓点击按钮实现缩放效果，点击完成恢复原状](https://blog.csdn.net/lgz0921/article/details/119353183)
 2. Android StateListAnimator 方式实现效果    
   [聊聊 Android StateListAnimator](https://www.jianshu.com/p/4ad49e78e0b6)     
