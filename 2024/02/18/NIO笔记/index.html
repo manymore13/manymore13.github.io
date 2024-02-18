@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NIO笔记 | manymore13&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NIO笔记BIO输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。 java NIO基本介绍 Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NIO笔记">
+<meta property="og:url" content="https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="manymore13&#39;s blog">
+<meta property="og:description" content="NIO笔记BIO输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。 java NIO基本介绍 Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java">
+<meta property="og:locale">
+<meta property="og:image" content="https://manymore13.github.io/img/nioylt.png">
+<meta property="article:published_time" content="2024-02-18T07:38:41.138Z">
+<meta property="article:modified_time" content="2024-02-18T08:17:02.006Z">
+<meta property="article:author" content="manymore13">
+<meta property="article:tag" content="技术,投资">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://manymore13.github.io/img/nioylt.png">
+  
+    <link rel="alternate" href="/atom.xml" title="manymore13's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">manymore13&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">纸上得来终觉浅，绝知此事要躬行</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://manymore13.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-NIO笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-02-18T07:38:41.138Z" itemprop="datePublished">2024-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NIO笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="NIO笔记"><a href="#NIO笔记" class="headerlink" title="NIO笔记"></a>NIO笔记</h1><h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><p>输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。</p>
+<h2 id="java-NIO基本介绍"><a href="#java-NIO基本介绍" class="headerlink" title="java NIO基本介绍"></a>java NIO基本介绍</h2><ol>
+<li><p>Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。<br>从 JDK1.4 开始，Java 提供了一系列改进的输入&#x2F;输出的新特性，被统称为 NIO(即 New IO)，是<strong>同步非阻塞</strong>的</p>
+</li>
+<li><p>NIO 有三大核心部分：Channel(通道)，Buffer(缓冲区), Selector(选择器) </p>
+</li>
+<li><p>NIO是 面向缓冲区 ，或者面向 块 编程的。数据读取到一个它稍后处理的缓冲区，<br>需要时可在缓冲区中前后移动，这就增加了处理过程中的灵活性，使用它可以提供非阻塞式的高伸缩性网络</p>
+</li>
+</ol>
+<h2 id="NIO-和-BIO-的比较"><a href="#NIO-和-BIO-的比较" class="headerlink" title="NIO 和 BIO 的比较"></a>NIO 和 BIO 的比较</h2><ol>
+<li>BIO 以流的方式处理数据,而 NIO 以块的方式处理数据,块 I&#x2F;O 的效率比流 I&#x2F;O 高很多</li>
+<li>BIO 是阻塞的，NIO 则是非阻塞的</li>
+<li>BIO基于字节流和字符流进行操作，而 NIO 基于 Channel(通道)和 Buffer(缓冲区)进行操作，数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中。Selector(选择器)用于监听多个通道的事件（比如：连接请求，数据到达等），因此使用单个线程就可以监听多个客户端通道</li>
+</ol>
+<h2 id="NIO-三大核心原理示意图"><a href="#NIO-三大核心原理示意图" class="headerlink" title="NIO 三大核心原理示意图"></a>NIO 三大核心原理示意图</h2><p><img src="/../img/nioylt.png" alt="nio原理图"></p>
+<ol>
+<li>每个channel 都会对应一个Buffer</li>
+<li>Selector 对应一个线程， 一个线程对应多个channel(连接)</li>
+<li>该图反应了有三个channel 注册到 该selector &#x2F;&#x2F;程序</li>
+<li>程序切换到哪个channel 是有事件决定的, Event 就是一个重要的概念</li>
+<li>Selector 会根据不同的事件，在各个通道上切换</li>
+<li>Buffer 就是一个内存块 ， 底层是有一个数组</li>
+<li>数据的读取写入是通过Buffer, 这个和BIO , BIO 中要么是输入流，或者是输出流, 不能双向，但是NIO的Buffer 是可以读也可以写, 需要 flip 方法切换</li>
+<li>channel 是双向的, 可以返回底层操作系统的情况, 比如Linux ， 底层的操作系统通道就是双向的.</li>
+</ol>
+<p></p>
+<h3 id="缓冲区-Buffer"><a href="#缓冲区-Buffer" class="headerlink" title="缓冲区(Buffer)"></a>缓冲区(Buffer)</h3><p>缓冲区本质上是一个可以读写数据的内存块，可以理解成是一个容器对象(含数组)，该对象提供了一组方法，可以更轻松地使用内存块，<br>缓冲区对象内置了一些机制，能够跟踪和记录缓冲区的状态变化情况。<br>Channel 提供从文件、网络读取数据的渠道，但是读取或写入的数据都必须经由 Buffer</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Capacity</td>
+<td>容量，即可以容纳的最大数据量；在缓冲区创建时被设定并且不能改变</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>表示缓冲区的当前终点，不能对缓冲区超过极限的位置进行读写操作。且极限是可以修改的</td>
+</tr>
+<tr>
+<td>Position</td>
+<td>位置，下一个要被读或写的元素的索引，每次读写缓冲区数据时都会改变改值，为下次读写作准备</td>
+</tr>
+<tr>
+<td>Mark</td>
+<td>标记</td>
+</tr>
+</tbody></table>
+<h3 id="通道-Channel"><a href="#通道-Channel" class="headerlink" title="通道(Channel)"></a>通道(Channel)</h3><ol>
+<li>NIO的通道类似于流，但有些区别如下：</li>
+</ol>
+<ul>
+<li>通道可以同时进行读写，而流只能读或者只能写</li>
+<li>通道可以实现异步读写数据</li>
+<li>通道可以从缓冲读数据，也可以写数据到缓冲:</li>
+</ul>
+<p> <br>2. BIO 中的 stream 是单向的，例如 FileInputStream 对象只能进行读取数据的操作，而 NIO 中的通道(Channel)是双向的，可以读操作，也可以写操作。<br>3. 常用的 Channel 类有：FileChannel、DatagramChannel、ServerSocketChannel 和 SocketChannel。【ServerSocketChanne 类似 ServerSocket , SocketChannel 类似 Socket】<br>4. FileChannel 用于文件的数据读写，DatagramChannel 用于 UDP 的数据读写，ServerSocketChannel 和 SocketChannel 用于 TCP 的数据读写。</p>
+<h4 id="FileChannel-类"><a href="#FileChannel-类" class="headerlink" title="FileChannel 类"></a>FileChannel 类</h4><ul>
+<li>FileChannel主要用来对本地文件进行 IO 操作，常见的方法有</li>
+<li>public int read(ByteBuffer dst) ，从通道读取数据并放到缓冲区中</li>
+<li>public int write(ByteBuffer src) ，把缓冲区的数据写到通道中</li>
+<li>public long transferFrom(ReadableByteChannel src, long position, long count)，从目标通道中复制数据到当前通道</li>
+<li>public long transferTo(long position, long count, WritableByteChannel target)，把数据从当前通道复制给目标通道</li>
+</ul>
+<h4 id="利用nio拷贝文件"><a href="#利用nio拷贝文件" class="headerlink" title="利用nio拷贝文件"></a>利用nio拷贝文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;1.txt&quot;</span>);</span><br><span class="line">    <span class="type">FileChannel</span> <span class="variable">fileChannel01</span> <span class="operator">=</span> fileInputStream.getChannel();</span><br><span class="line"></span><br><span class="line">    <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;2.txt&quot;</span>);</span><br><span class="line">    <span class="type">FileChannel</span> <span class="variable">fileChannel02</span> <span class="operator">=</span> fileOutputStream.getChannel();</span><br><span class="line"></span><br><span class="line">    <span class="type">ByteBuffer</span> <span class="variable">byteBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">512</span>);</span><br><span class="line">    <span class="comment">//循环读取</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123; </span><br><span class="line"></span><br><span class="line">        <span class="comment">//这里有一个重要的操作，一定不要忘了</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         public final Buffer clear() &#123;</span></span><br><span class="line"><span class="comment">            position = 0;</span></span><br><span class="line"><span class="comment">            limit = capacity;</span></span><br><span class="line"><span class="comment">            mark = -1;</span></span><br><span class="line"><span class="comment">            return this;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        byteBuffer.clear(); <span class="comment">//清空buffer</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">read</span> <span class="operator">=</span> fileChannel01.read(byteBuffer);</span><br><span class="line">        System.out.println(<span class="string">&quot;read =&quot;</span> + read);</span><br><span class="line">        <span class="comment">//表示读完</span></span><br><span class="line">        <span class="keyword">if</span>(read == -<span class="number">1</span>) &#123; </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将buffer 中的数据写入到 fileChannel02 -- 2.txt</span></span><br><span class="line">        byteBuffer.flip();</span><br><span class="line">        fileChannel02.write(byteBuffer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//关闭相关的流</span></span><br><span class="line">    fileInputStream.close();</span><br><span class="line">    fileOutputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="拷贝文件transferFrom-方法"><a href="#拷贝文件transferFrom-方法" class="headerlink" title="拷贝文件transferFrom 方法"></a>拷贝文件transferFrom 方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>  <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建相关流</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;d:\\a.jpg&quot;</span>);</span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;d:\\a2.jpg&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取各个流对应的filechannel</span></span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">sourceCh</span> <span class="operator">=</span> fileInputStream.getChannel();</span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">destCh</span> <span class="operator">=</span> fileOutputStream.getChannel();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用transferForm完成拷贝</span></span><br><span class="line">        destCh.transferFrom(sourceCh,<span class="number">0</span>,sourceCh.size());</span><br><span class="line">        <span class="comment">//关闭相关通道和流</span></span><br><span class="line">        sourceCh.close();</span><br><span class="line">        destCh.close();</span><br><span class="line">        fileInputStream.close();</span><br><span class="line">        fileOutputStream.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/" data-id="clsr95v000003kcwz13gr39k7" data-title="NIO笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/02/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-%E9%9D%A2%E8%AF%95/" rel="tag">Android,面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android-%E9%9D%A2%E8%AF%95/" style="font-size: 10px;">Android,面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/">NIO笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/07/Android%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/">Android面试题整理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 manymore13<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
