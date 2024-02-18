@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>协程使用指南 | manymore13&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="协程使用指南协程介绍 协程是一种并发设计模式，是一套基于线程来实现的API，可以看作是轻量级线程。协程的一个好处是，当涉及到开发人员时，编写非阻塞代码与编写阻塞代码基本相同。编程模型本身并没有真正改变。  123implementation &#x27;org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1&#x27;&#x2F;&#x2F; 可选 Android中使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="协程使用指南">
+<meta property="og:url" content="https://manymore13.github.io/2020/01/02/%E5%8D%8F%E7%A8%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="manymore13&#39;s blog">
+<meta property="og:description" content="协程使用指南协程介绍 协程是一种并发设计模式，是一套基于线程来实现的API，可以看作是轻量级线程。协程的一个好处是，当涉及到开发人员时，编写非阻塞代码与编写阻塞代码基本相同。编程模型本身并没有真正改变。  123implementation &#x27;org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1&#x27;&#x2F;&#x2F; 可选 Android中使用">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-01-02T07:23:43.000Z">
+<meta property="article:modified_time" content="2024-02-18T09:33:11.998Z">
+<meta property="article:author" content="manymore13">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="协程">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="manymore13's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">manymore13&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">纸上得来终觉浅，绝知此事要躬行</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://manymore13.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-协程使用指南" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/02/%E5%8D%8F%E7%A8%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="article-date">
+  <time class="dt-published" datetime="2020-01-02T07:23:43.000Z" itemprop="datePublished">2020-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      协程使用指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="协程使用指南"><a href="#协程使用指南" class="headerlink" title="协程使用指南"></a>协程使用指南</h1><h2 id="协程介绍"><a href="#协程介绍" class="headerlink" title="协程介绍"></a>协程介绍</h2><blockquote>
+<p>协程是一种并发设计模式，是一套基于线程来实现的API，可以看作是轻量级线程。<br>协程的一个好处是，当涉及到开发人员时，编写非阻塞代码与编写阻塞代码基本相同。编程模型本身并没有真正改变。</p>
+</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1&#x27;</span></span><br><span class="line"><span class="comment">// 可选 Android中使用协程</span></span><br><span class="line">implementation <span class="string">&#x27;org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="协程的用法"><a href="#协程的用法" class="headerlink" title="协程的用法"></a>协程的用法</h2><h3 id="创建一个协程，并执行"><a href="#创建一个协程，并执行" class="headerlink" title="创建一个协程，并执行"></a>创建一个协程，并执行</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 在后台启动一个新的协程并执行</span></span><br><span class="line">    GlobalScope.launch &#123; </span><br><span class="line">        <span class="comment">// 非阻塞的等待 1 秒钟（默认时间单位是毫秒）</span></span><br><span class="line">        delay(<span class="number">1000L</span>) </span><br><span class="line">        <span class="comment">// 在延迟后打印输出</span></span><br><span class="line">        println(<span class="string">&quot;World!&quot;</span>) </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 协程已在等待时主线程还在继续</span></span><br><span class="line">    println(<span class="string">&quot;Hello,&quot;</span>) </span><br><span class="line">    <span class="comment">// 阻塞主线程 2 秒钟来保证 JVM 存活</span></span><br><span class="line">    Thread.sleep(<span class="number">2000L</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码运行的结果：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello,</span><br><span class="line">World!</span><br></pre></td></tr></table></figure>
+<p>我们使用<strong>GlobalScope.launch</strong>创建一个协程，并执行它，后面大括号里包着的是协程要执行的内容，类似于线程中的run方法体。</p>
+<ul>
+<li><strong>delay</strong>方法只能在协程内部使用，它用于挂起协程，但是不会阻塞当前协程所在的线程。</li>
+<li><strong>Thread.sleep</strong>会阻塞当前线程，也就是说当前线程被阻塞在那暂时不能做别的事情了</li>
+</ul>
+<hr>
+<p>关于协程的方法只能在协程体里面执行，所以为了方便测试协程代码，我准备使用<strong>runBlocking</strong>把main方法包起来。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *显式指定了其返回类型 Unit，</span></span><br><span class="line"><span class="comment"> * 因为在 Kotlin 中 main 函数必须返回 Unit 类型。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>= runBlocking&lt;<span class="built_in">Unit</span>&gt; &#123;</span><br><span class="line">    <span class="comment">// 打印当前线程名称</span></span><br><span class="line">    println(Thread.currentThread().name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main</span><br></pre></td></tr></table></figure>
+<p>runBlocking方法运行一个新的协程并且阻塞当前线程，上面的代码中包裹的是main方法，所以阻塞的是main线程</p>
+<h3 id="协程挂起"><a href="#协程挂起" class="headerlink" title="协程挂起"></a>协程挂起</h3><blockquote>
+<p>我们用suspend修饰符来标记函数<br>挂起函数只被允许在协程或另一个挂起函数中调用</p>
+</blockquote>
+<p>我们先看一个先获取token，再登录的例子，里面用到挂起函数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlin.system.measureTimeMillis</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * main函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>= runBlocking&lt;<span class="built_in">Unit</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> time = measureTimeMillis&#123;</span><br><span class="line">        <span class="keyword">val</span> token = getToken()</span><br><span class="line">        <span class="keyword">val</span> loginInfo = login(token)</span><br><span class="line">        println(loginInfo)</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">&quot;Completed in <span class="variable">$time</span> ms&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟接口获取token</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getToken</span><span class="params">()</span></span>:String&#123;</span><br><span class="line">    delay(<span class="number">1000L</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;woshitoken&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟接口登录</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">login</span><span class="params">(token:<span class="type">String</span>)</span></span>:String &#123;</span><br><span class="line">    delay(<span class="number">1000L</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;my token is: <span class="variable">$token</span> , login success&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my token <span class="keyword">is</span>: woshitoken , login success</span><br><span class="line">Completed <span class="keyword">in</span> <span class="number">2012</span> ms</span><br></pre></td></tr></table></figure>
+<ul>
+<li>我对挂起的理解：<blockquote>
+<p>在上面的代码中有两个挂起函数getToken和login，当程序逻辑走到挂起函数getToken()那里，当前协程被挂起,getToken()被抛出去执行，你可以指定在哪一个线程池中执行，当getToken在外部执行完后再恢复刚才挂起的协程，协程代码继续执行。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="async-并发"><a href="#async-并发" class="headerlink" title="async 并发"></a>async 并发</h3><blockquote>
+<p>在概念上，async 就类似于 launch。它启动了一个单独的协程，这是一个轻量级的线程并与其它所有的协程一起并发的工作。不同之处在于 launch 返回一个 Job 并且不附带任何结果值，而 async 返回一个 Deferred —— 一个轻量级的非阻塞 future， 这代表了一个将会在稍后提供结果的 promise。你可以使用 .await() 在一个延期的值上得到它的最终结果， 但是 Deferred 也是一个 Job，所以如果需要的话，你可以取消它。<a target="_blank" rel="noopener" href="https://www.kotlincn.net/docs/reference/coroutines/composing-suspending-functions.html#%E4%BD%BF%E7%94%A8-async-%E5%B9%B6%E5%8F%91">转自 kotlincn.net</a></p>
+</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlin.system.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking&lt;<span class="built_in">Unit</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> time = measureTimeMillis &#123;</span><br><span class="line">        <span class="keyword">val</span> one = async &#123; doSomethingUsefulOne() &#125;</span><br><span class="line">        <span class="keyword">val</span> two = async &#123; doSomethingUsefulTwo() &#125;</span><br><span class="line">        println(<span class="string">&quot;The answer is <span class="subst">$&#123;one.await() + two.await()&#125;</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">&quot;Completed in <span class="variable">$time</span> ms&quot;</span>)    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">doSomethingUsefulOne</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="comment">// 假设我们在这里做了些有用的事</span></span><br><span class="line">    delay(<span class="number">1000L</span>) </span><br><span class="line">    <span class="keyword">return</span> <span class="number">13</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">doSomethingUsefulTwo</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="comment">// 假设我们在这里也做了些有用的事</span></span><br><span class="line">    delay(<span class="number">1000L</span>) </span><br><span class="line">    <span class="keyword">return</span> <span class="number">29</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The answer <span class="keyword">is</span> <span class="number">42</span></span><br><span class="line">Completed <span class="keyword">in</span> <span class="number">1055</span> ms</span><br></pre></td></tr></table></figure>
+<p>两个协程是并发执行。<br><a target="_blank" rel="noopener" href="https://www.kotlincn.net/docs/reference/coroutines/composing-suspending-functions.html#%E6%83%B0%E6%80%A7%E5%90%AF%E5%8A%A8%E7%9A%84-async">惰性启动的-async</a></p>
+<h2 id="Flow"><a href="#Flow" class="headerlink" title="Flow"></a>Flow</h2><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.kotlincn.net/docs/reference/coroutines/coroutines-guide.html">官方协程指南</a><br><a target="_blank" rel="noopener" href="https://kaixue.io/kotlin-coroutines-2/">kaixue</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903921337516040">如何正确的在 Android 上使用协程 ？</a><br><a target="_blank" rel="noopener" href="https://www.bennyhuo.com/2020/03/14/coroutine-flow/">协程博客</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://manymore13.github.io/2020/01/02/%E5%8D%8F%E7%A8%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" data-id="clsrbjluk000ny8wzfxfs2q5o" data-title="协程使用指南" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%8F%E7%A8%8B/" rel="tag">协程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          多线程相关笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/02/NDK%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">NDK编程笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NDK/" rel="tag">NDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8F%E7%A8%8B/" rel="tag">协程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%91%E8%9E%8D/" rel="tag">金融</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="/tags/NDK/" style="font-size: 10px;">NDK</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 10px;">协程</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E8%AF%BB%E4%B9%A6/" style="font-size: 10px;">读书</a> <a href="/tags/%E9%87%91%E8%9E%8D/" style="font-size: 10px;">金融</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/">NIO笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/15/%E7%88%AC%E8%99%AB%E4%B8%93%E9%A2%98/">爬虫笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/13/%E9%87%91%E8%9E%8D%E8%B5%84%E6%96%99%E6%90%9C%E9%9B%86/">金融资料搜集</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/08/UML%E7%B1%BB%E5%9B%BE%E5%85%B3%E7%B3%BB/">UML类图关系</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 manymore13<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

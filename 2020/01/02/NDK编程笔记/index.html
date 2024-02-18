@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NDK编程笔记 | manymore13&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NDK编程笔记FFMpeg国内镜像参考链接 NDK指南 NDK库Api 官方例子 Android NDK 开发-韩曙亮 NDK r21编译FFmpeg 4.2.2（x86、x86_64、armv7、armv8） ffmpeg-android-maker,wiki推荐使用这个脚本编译FFmpeg1.&#x2F;ffmpeg-android-maker.sh -abis&#x3D;x86_64 -android&#x3D;21 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NDK编程笔记">
+<meta property="og:url" content="https://manymore13.github.io/2020/01/02/NDK%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="manymore13&#39;s blog">
+<meta property="og:description" content="NDK编程笔记FFMpeg国内镜像参考链接 NDK指南 NDK库Api 官方例子 Android NDK 开发-韩曙亮 NDK r21编译FFmpeg 4.2.2（x86、x86_64、armv7、armv8） ffmpeg-android-maker,wiki推荐使用这个脚本编译FFmpeg1.&#x2F;ffmpeg-android-maker.sh -abis&#x3D;x86_64 -android&#x3D;21 -">
+<meta property="og:locale">
+<meta property="og:image" content="https://manymore13.github.io/_drafts1/img/%E7%BC%96%E8%AF%91.png">
+<meta property="article:published_time" content="2020-01-02T06:23:38.000Z">
+<meta property="article:modified_time" content="2024-02-18T09:34:46.309Z">
+<meta property="article:author" content="manymore13">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="NDK">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://manymore13.github.io/_drafts1/img/%E7%BC%96%E8%AF%91.png">
+  
+    <link rel="alternate" href="/atom.xml" title="manymore13's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">manymore13&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">纸上得来终觉浅，绝知此事要躬行</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://manymore13.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-NDK编程笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/02/NDK%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2020-01-02T06:23:38.000Z" itemprop="datePublished">2020-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NDK编程笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="NDK编程笔记"><a href="#NDK编程笔记" class="headerlink" title="NDK编程笔记"></a>NDK编程笔记</h1><h2 id="FFMpeg国内镜像"><a href="#FFMpeg国内镜像" class="headerlink" title="FFMpeg国内镜像"></a><a target="_blank" rel="noopener" href="https://gitee.com/mirrors/ffmpeg">FFMpeg国内镜像</a></h2><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/guides">NDK指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/reference">NDK库Api</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/samples">官方例子</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/han1202012/category_9493908.html">Android NDK 开发-韩曙亮</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011609853/article/details/105648099">NDK r21编译FFmpeg 4.2.2（x86、x86_64、armv7、armv8）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Javernaut/ffmpeg-android-maker">ffmpeg-android-maker</a>,<a target="_blank" rel="noopener" href="https://github.com/Javernaut/ffmpeg-android-maker/wiki/Setting-the-FFmpeg-version">wiki</a><br>推荐使用这个脚本编译FFmpeg<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ffmpeg-android-maker.sh -abis=x86_64 -android=21 --source-git-branch=release/4.2.3</span><br></pre></td></tr></table></figure></li>
+<li><a target="_blank" rel="noopener" href="http://trac.ffmpeg.org/wiki/CompilationGuide/Android">wikiCompilationGuide&#x2F;Android</a> </li>
+<li><a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/CompilationGuide/Generic">FFmpeg官方WIKI</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lbcab/article/details/72771729">Android gradle SourceSets介绍与使用</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/chaoqiangscu/article/details/83023762">Android：JNI调用C++自定义类的详细方法</a></li>
+</ol>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol>
+<li>NDK是什么？<br>一套可以帮助你把原生代码(c&#x2F;c++)嵌入到Android应用中的工具</li>
+<li>适用性<br>重用已经有的原生库，计算密集型应用用原生代码可以提高性能，比如游戏</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/jniTOC.html">JNI ORACLE官方介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013278099/article/details/52003759">了解JNI动态注册native方法</a></li>
+</ol>
+<h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A(预处理)--&gt;B(编译)</span><br><span class="line">B--&gt;C(汇编)</span><br><span class="line">C--&gt;D(链接)</span><br><span class="line">```   </span><br><span class="line">- **预处理(Preprocessing)**</span><br><span class="line">   完成宏替换，文件引入，以及去除空行，注释等，为下一步编译做准备。也就是对各种预处理命令进行处理，包括头文件的包含，宏定义的扩展，条件编译的选择等。</span><br><span class="line">    ```shell</span><br><span class="line">    gcc -E test.c -o test.i</span><br></pre></td></tr></table></figure>
+<p>选项-E让gcc在预处理结束后停止编译，test.i文件为预处理后输出的文件。-o指定输出文件</p>
+<ul>
+<li><p><strong>编译(Compilation)</strong><br><img src="/../_drafts1/img/%E7%BC%96%E8%AF%91.png" alt="编译">  </p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S test.i -o test.s</span><br></pre></td></tr></table></figure>
+<p>选项-S让gcc在编译结束后停止编译过程,test.s文件为编译后生成的汇编代码。</p>
+</li>
+<li><p><strong>汇编</strong><br>汇编就是把编译阶段生成的.s文件转成二进制<strong>目标代码</strong>，也就是机器代码(01序列)。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c test.s -o test.o</span><br></pre></td></tr></table></figure>
+<p>选项-c让gcc在汇编结束后停止编译过程，test.o文件为生成的机器码目标文件。</p>
+</li>
+<li><p><strong>链接</strong><br>链接就是将多个目标文件以及所需的库文件链接生成可执行目标文件的过程。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc test.o -o test</span><br></pre></td></tr></table></figure>
+<p>  -o本质上是一个重命名选项。不使用-o选项时，默认生成的是a.out文件</p>
+</li>
+<li><p><strong>一次性生成可执行文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o test test.c</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="静态库与动态库"><a href="#静态库与动态库" class="headerlink" title="静态库与动态库"></a>静态库与动态库</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/codingmengmeng/p/6046481.html">静态库和动态库的区别</a></p>
+<h2 id="CMake使用"><a href="#CMake使用" class="headerlink" title="CMake使用"></a>CMake使用</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bigdog_1027/article/details/79113342">cmake学习笔记之add_library、target_link_libraries和link_directories</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e51547d288fd">FFmpeg（四）：CMake移植FFmpeg的静态库到AndroidStudio中</a></p>
+<h2 id="编译工具-推荐使用CMake"><a href="#编译工具-推荐使用CMake" class="headerlink" title="编译工具(推荐使用CMake)"></a>编译工具(推荐使用CMake)</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoyu_93/article/details/53082088">CMake,Ndkbuild不同配置方法以及区别</a>   </li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/projects/configure-cmake#add-ndk-api">配置CMake-官方</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/projects/configure-cmake#add-ndk-api">如何添加NDK API</a><br>添加ndk中的日志打印库<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION <span class="number">3.4</span><span class="number">.1</span>)</span><br><span class="line">include_directories( src/main/cpp/include/ )</span><br><span class="line"></span><br><span class="line">add_library(hello-jni SHARED</span><br><span class="line">            src/main/cpp/Hello.c)</span><br><span class="line"></span><br><span class="line">add_library(callC SHARED</span><br><span class="line">        src/main/cpp/javaCallC.c)</span><br><span class="line"></span><br><span class="line">add_library(calljava SHARED</span><br><span class="line">        src/main/cpp/cCallJava.cpp)</span><br><span class="line"></span><br><span class="line">find_library(log-lib</span><br><span class="line">        log)</span><br><span class="line"></span><br><span class="line"># Include libraries needed <span class="keyword">for</span> hello-jni lib</span><br><span class="line"><span class="title function_">target_link_libraries</span><span class="params">(hello-jni</span></span><br><span class="line"><span class="params">                      android</span></span><br><span class="line"><span class="params">                      log)</span></span><br><span class="line">target_link_libraries( calljava  $&#123;log-lib&#125; )</span><br></pre></td></tr></table></figure>
+具体配置介绍参考 <a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/projects/configure-cmake#add-ndk-api">配置CMake-官方</a></li>
+</ol>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ol>
+<li>生成头文件:javah -d 存放的目录　完整类</li>
+<li>查看方法签名:javap　-s 完整类</li>
+<li>kotlin类头文件生成必须要到 路径(app&#x2F;build&#x2F;tmp&#x2F;kotlin-classes&#x2F;debug)下javah <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">javap -s com.cn.katefm.jni.CcallJava</span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">## java调用C</span><br><span class="line">直接看源码</span><br><span class="line">java或者kotlin要调用ｃ/c++函数，必须声明<span class="keyword">native</span>方法</span><br><span class="line">他们用的关键字不一样。</span><br><span class="line">```kotlin</span><br><span class="line"><span class="keyword">package</span> com.cn.katefm.jni</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * c代码调用java代码</span></span><br><span class="line"><span class="comment"> * 查看该类所有方法签名</span></span><br><span class="line"><span class="comment"> * ~/AndroidStudioProjects/KateFM/app/build/tmp/kotlin-classes/debug$ javap -s com.cn.katefm.jni.CcallJava</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CcallJava</span> &#123;</span><br><span class="line"></span><br><span class="line">    init &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;calljava&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    external fun <span class="title function_">cCallmultiply</span><span class="params">(a: Int, b: Int)</span>:Int</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 乘法运算</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    fun <span class="title function_">multiply</span><span class="params">(a: Int, b: Int)</span> = a * b</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cn.katefm.jni;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * java代码调用C代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaCallC</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;callC&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 两数想家</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> y</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">native</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 字符串拼接</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> s</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">native</span> String <span class="title function_">sayHello</span><span class="params">(String s)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 修改字符串值并返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> intArray</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">native</span> <span class="type">int</span>[] increaseArrayEles(<span class="type">int</span>[] intArray);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码检验</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pwd 密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">native</span> <span class="type">int</span> <span class="title function_">checkPwd</span><span class="params">(String pwd)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by manymore13 on 20-6-15.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// https://developer.android.com/studio/projects/configure-cmake</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;com_cn_katefm_jni_JNI.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">jint <span class="title">Java_com_cn_katefm_jni_JavaCallC_add</span></span></span><br><span class="line"><span class="function">        <span class="params">(JNIEnv *env, jobject jobj, jint x, jint y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">jstring <span class="title">Java_com_cn_katefm_jni_JavaCallC_sayHello</span></span></span><br><span class="line"><span class="function">        <span class="params">(JNIEnv *env, jobject jobj, jstring str)</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> *jniStr = <span class="string">&quot;我是jni&quot;</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *jStr = (*env)-&gt;<span class="built_in">GetStringUTFChars</span>(env, str, <span class="number">0</span>);</span><br><span class="line">    jniStr = <span class="built_in">strcat</span>(jniStr, jStr);</span><br><span class="line">    <span class="keyword">return</span> (*env)-&gt;<span class="built_in">NewStringUTF</span>(env, jniStr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jintArray JNICALL <span class="title">Java_com_cn_katefm_jni_JavaCallC_increaseArrayEles</span></span></span><br><span class="line"><span class="function">        <span class="params">(JNIEnv *env, jobject jobj, jintArray jArray)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> len = (*env)-&gt;<span class="built_in">GetArrayLength</span>(env, jArray);</span><br><span class="line">    jint *jIntArray = (*env)-&gt;<span class="built_in">GetIntArrayElements</span>(env, jArray, JNI_FALSE);</span><br><span class="line">    jintArray resultArray = (*env)-&gt;<span class="built_in">NewIntArray</span>(env, len);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        jint *current = jIntArray + i;</span><br><span class="line">        *current = +<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    (*env)-&gt;<span class="built_in">SetIntArrayRegion</span>(env, resultArray, <span class="number">0</span>, len, jIntArray);</span><br><span class="line">    <span class="keyword">return</span> resultArray;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_cn_katefm_jni_JavaCallC_checkPwd</span></span></span><br><span class="line"><span class="function">        <span class="params">(JNIEnv *env, jobject jobj, jstring passWord)</span> </span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *origin = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *userPassWord = (*env)-&gt;<span class="built_in">GetStringUTFChars</span>(env, passWord, JNI_FALSE);</span><br><span class="line">    <span class="type">int</span> code = <span class="built_in">strcmp</span>(origin, userPassWord);</span><br><span class="line">    <span class="keyword">if</span> (code == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">200</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">400</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="C调用java"><a href="#C调用java" class="headerlink" title="C调用java"></a>C调用java</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by manymore13 on 20-6-16.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;com_cn_katefm_jni_CcallJava.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;android/log.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  LOG_TAG  <span class="string">&quot;test&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LOGI(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LOGD(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_cn_katefm_jni_CcallJava_cCallmultiply</span></span></span><br><span class="line"><span class="function">        <span class="params">(JNIEnv *env, jobject jobj, jint a, jint b)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1. 得到字节码</span></span><br><span class="line">    jclass jclazz = (env)-&gt;<span class="built_in">FindClass</span>(<span class="string">&quot;com/cn/katefm/jni/CcallJava&quot;</span>);</span><br><span class="line">    <span class="comment">//2. 得到方法</span></span><br><span class="line">    jmethodID jmethodId = env-&gt;<span class="built_in">GetMethodID</span>(jclazz, <span class="string">&quot;multiply&quot;</span>, <span class="string">&quot;(II)I&quot;</span>);</span><br><span class="line">    <span class="comment">//3.实例化该类语言打印日志</span></span><br><span class="line">    <span class="comment">//jobject  jobject = env-&gt;AllocObject(jclazz);</span></span><br><span class="line">    <span class="comment">//4.调用该方法</span></span><br><span class="line">    <span class="built_in">LOGD</span>(<span class="string">&quot;我是日志打印&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> env-&gt;<span class="built_in">CallIntMethod</span>(jobj,jmethodId,a,b);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>native层调用java层弹Toast</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">jclass</span> <span class="variable">jclazz</span> <span class="operator">=</span> env-&gt;FindClass(<span class="string">&quot;com/cn/katefm/MainActivity&quot;</span>);</span><br><span class="line">    <span class="type">jmethodID</span> <span class="variable">jmethodId</span> <span class="operator">=</span> env-&gt;GetMethodID(jclazz, <span class="string">&quot;showToast&quot;</span>, <span class="string">&quot;(Ljava/lang/String;)V&quot;</span>);</span><br><span class="line">    env-&gt;CallVoidMethod(thiz, jmethodId, str);</span><br></pre></td></tr></table></figure>
+
+<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><ol>
+<li>[解决Error: undefined reference to &#96;__android_log_print’](<a target="_blank" rel="noopener" href="https://blog.csdn.net/guyuealian/article/details/78310025">https://blog.csdn.net/guyuealian/article/details/78310025</a>)</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://manymore13.github.io/2020/01/02/NDK%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" data-id="clsrbjlue0003y8wz0i24b3ev" data-title="NDK编程笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NDK/" rel="tag">NDK</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/02/%E5%8D%8F%E7%A8%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          协程使用指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/02/kotlin%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E6%95%B4%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Kotlin入门教程整理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NDK/" rel="tag">NDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8F%E7%A8%8B/" rel="tag">协程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%91%E8%9E%8D/" rel="tag">金融</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="/tags/NDK/" style="font-size: 10px;">NDK</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 10px;">协程</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E8%AF%BB%E4%B9%A6/" style="font-size: 10px;">读书</a> <a href="/tags/%E9%87%91%E8%9E%8D/" style="font-size: 10px;">金融</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/">NIO笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/15/%E7%88%AC%E8%99%AB%E4%B8%93%E9%A2%98/">爬虫笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/13/%E9%87%91%E8%9E%8D%E8%B5%84%E6%96%99%E6%90%9C%E9%9B%86/">金融资料搜集</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/08/UML%E7%B1%BB%E5%9B%BE%E5%85%B3%E7%B3%BB/">UML类图关系</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 manymore13<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
