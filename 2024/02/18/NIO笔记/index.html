@@ -1,106 +1,159 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>NIO笔记 | manymore13&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="NIO笔记BIO输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。 java NIO基本介绍 Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java">
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NIO笔记 | manymore13's blog</title><meta name="author" content="manymore13"><meta name="copyright" content="manymore13"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="BIO输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。 java NIO基本介绍 Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java 提供了一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NIO笔记">
 <meta property="og:url" content="https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="manymore13&#39;s blog">
-<meta property="og:description" content="NIO笔记BIO输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。 java NIO基本介绍 Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java">
+<meta property="og:description" content="BIO输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。 java NIO基本介绍 Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java 提供了一">
 <meta property="og:locale">
-<meta property="og:image" content="https://manymore13.github.io/img/nioylt.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2024-02-18T07:38:41.138Z">
-<meta property="article:modified_time" content="2024-02-18T10:01:56.786Z">
+<meta property="article:modified_time" content="2024-02-20T01:30:15.913Z">
 <meta property="article:author" content="manymore13">
 <meta property="article:tag" content="技术,投资">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://manymore13.github.io/img/nioylt.png">
-  
-    <link rel="alternate" href="/atom.xml" title="manymore13's blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<meta name="generator" content="Hexo 7.1.1"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">manymore13&#39;s blog</a>
-      </h1>
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NIO笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-20 09:30:15'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">纸上得来终觉浅，绝知此事要躬行</a>
-        </h2>
+        get: key => {
+          const itemStr = localStorage.getItem(key)
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://manymore13.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-NIO笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time class="dt-published" datetime="2024-02-18T07:38:41.138Z" itemprop="datePublished">2024-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      NIO笔记
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
       
-        <h1 id="NIO笔记"><a href="#NIO笔记" class="headerlink" title="NIO笔记"></a>NIO笔记</h1><h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><p>输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。</p>
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="manymore13's blog"><span class="site-name">manymore13's blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">NIO笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-02-18T07:38:41.138Z" title="Created 2024-02-18 15:38:41">2024-02-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-02-20T01:30:15.913Z" title="Updated 2024-02-20 09:30:15">2024-02-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="NIO笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><p>输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。</p>
 <h2 id="java-NIO基本介绍"><a href="#java-NIO基本介绍" class="headerlink" title="java NIO基本介绍"></a>java NIO基本介绍</h2><ol>
 <li><p>Java NIO 全称 java non-blocking IO，是指 JDK 提供的新 API。<br>从 JDK1.4 开始，Java 提供了一系列改进的输入&#x2F;输出的新特性，被统称为 NIO(即 New IO)，是<strong>同步非阻塞</strong>的</p>
 </li>
@@ -170,140 +223,4 @@
 <h4 id="利用nio拷贝文件"><a href="#利用nio拷贝文件" class="headerlink" title="利用nio拷贝文件"></a>利用nio拷贝文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;1.txt&quot;</span>);</span><br><span class="line">    <span class="type">FileChannel</span> <span class="variable">fileChannel01</span> <span class="operator">=</span> fileInputStream.getChannel();</span><br><span class="line"></span><br><span class="line">    <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;2.txt&quot;</span>);</span><br><span class="line">    <span class="type">FileChannel</span> <span class="variable">fileChannel02</span> <span class="operator">=</span> fileOutputStream.getChannel();</span><br><span class="line"></span><br><span class="line">    <span class="type">ByteBuffer</span> <span class="variable">byteBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">512</span>);</span><br><span class="line">    <span class="comment">//循环读取</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123; </span><br><span class="line"></span><br><span class="line">        <span class="comment">//这里有一个重要的操作，一定不要忘了</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         public final Buffer clear() &#123;</span></span><br><span class="line"><span class="comment">            position = 0;</span></span><br><span class="line"><span class="comment">            limit = capacity;</span></span><br><span class="line"><span class="comment">            mark = -1;</span></span><br><span class="line"><span class="comment">            return this;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        byteBuffer.clear(); <span class="comment">//清空buffer</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">read</span> <span class="operator">=</span> fileChannel01.read(byteBuffer);</span><br><span class="line">        System.out.println(<span class="string">&quot;read =&quot;</span> + read);</span><br><span class="line">        <span class="comment">//表示读完</span></span><br><span class="line">        <span class="keyword">if</span>(read == -<span class="number">1</span>) &#123; </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将buffer 中的数据写入到 fileChannel02 -- 2.txt</span></span><br><span class="line">        byteBuffer.flip();</span><br><span class="line">        fileChannel02.write(byteBuffer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//关闭相关的流</span></span><br><span class="line">    fileInputStream.close();</span><br><span class="line">    fileOutputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="拷贝文件transferFrom-方法"><a href="#拷贝文件transferFrom-方法" class="headerlink" title="拷贝文件transferFrom 方法"></a>拷贝文件transferFrom 方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>  <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建相关流</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;d:\\a.jpg&quot;</span>);</span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;d:\\a2.jpg&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取各个流对应的filechannel</span></span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">sourceCh</span> <span class="operator">=</span> fileInputStream.getChannel();</span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">destCh</span> <span class="operator">=</span> fileOutputStream.getChannel();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用transferForm完成拷贝</span></span><br><span class="line">        destCh.transferFrom(sourceCh,<span class="number">0</span>,sourceCh.size());</span><br><span class="line">        <span class="comment">//关闭相关通道和流</span></span><br><span class="line">        sourceCh.close();</span><br><span class="line">        destCh.close();</span><br><span class="line">        fileInputStream.close();</span><br><span class="line">        fileOutputStream.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/" data-id="clsrda2py0003igwzen365s1l" data-title="NIO笔记" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2024/02/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NDK/" rel="tag">NDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8F%E7%A8%8B/" rel="tag">协程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag">读书</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%91%E8%9E%8D/" rel="tag">金融</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="/tags/NDK/" style="font-size: 10px;">NDK</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 10px;">协程</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E8%AF%BB%E4%B9%A6/" style="font-size: 10px;">读书</a> <a href="/tags/%E9%87%91%E8%9E%8D/" style="font-size: 10px;">金融</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 10px;">面试</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/">NIO笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2024/02/18/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/15/%E7%88%AC%E8%99%AB%E4%B8%93%E9%A2%98/">爬虫笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/13/%E9%87%91%E8%9E%8D%E8%B5%84%E6%96%99%E6%90%9C%E9%9B%86/">金融资料搜集</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/08/UML%E7%B1%BB%E5%9B%BE%E5%85%B3%E7%B3%BB/">UML类图关系</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2024 manymore13<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://manymore13.github.io">manymore13</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/">https://manymore13.github.io/2024/02/18/NIO%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/02/18/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">manymore13</div><div class="author-info__description">分享技术与生活</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BIO"><span class="toc-number">1.</span> <span class="toc-text">BIO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java-NIO%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">java NIO基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NIO-%E5%92%8C-BIO-%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">3.</span> <span class="toc-text">NIO 和 BIO 的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NIO-%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text">NIO 三大核心原理示意图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA-Buffer"><span class="toc-number">4.1.</span> <span class="toc-text">缓冲区(Buffer)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E9%81%93-Channel"><span class="toc-number">4.2.</span> <span class="toc-text">通道(Channel)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FileChannel-%E7%B1%BB"><span class="toc-number">4.2.1.</span> <span class="toc-text">FileChannel 类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8nio%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">利用nio拷贝文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6transferFrom-%E6%96%B9%E6%B3%95"><span class="toc-number">4.2.3.</span> <span class="toc-text">拷贝文件transferFrom 方法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/18/NIO%E7%AC%94%E8%AE%B0/" title="NIO笔记">NIO笔记</a><time datetime="2024-02-18T07:38:41.138Z" title="Created 2024-02-18 15:38:41">2024-02-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/18/hello-world/" title="Hello World">Hello World</a><time datetime="2024-02-18T07:09:16.139Z" title="Created 2024-02-18 15:09:16">2024-02-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/15/crawl_xs/" title="爬取小说">爬取小说</a><time datetime="2023-05-15T08:23:43.000Z" title="Created 2023-05-15 16:23:43">2023-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/15/%E7%88%AC%E8%99%AB%E4%B8%93%E9%A2%98/" title="爬虫笔记">爬虫笔记</a><time datetime="2023-05-15T08:23:43.000Z" title="Created 2023-05-15 16:23:43">2023-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/13/%E9%87%91%E8%9E%8D%E8%B5%84%E6%96%99%E6%90%9C%E9%9B%86/" title="金融资料搜集">金融资料搜集</a><time datetime="2022-02-13T08:23:43.000Z" title="Created 2022-02-13 16:23:43">2022-02-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By manymore13</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
