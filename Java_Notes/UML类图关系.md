@@ -10,12 +10,12 @@ Tags:UML
 
 表示：泛化关系用一条带空心箭头的直接表示
 
-<img src="img/3424242343.jpg" width="50%" />
+<img src="../Othor_Notes/img/3424242343.jpg" width="50%" />
 
 # 实现
 接口实现
 
-<img src="img/1582868458sadasda.jpg" width="50%" />
+<img src="../Othor_Notes/img/1582868458sadasda.jpg" width="50%" />
 
 # 依赖
 Uses-A 关系
@@ -28,7 +28,7 @@ Uses-A 关系
 
 表示：依赖关系是用一套带箭头的虚线表示的。B依赖于A，描述一个对象在运行期间会用到另一个对象的关系
 
-<img src="img/457769fd.jpg" width="50%" />
+<img src="../Othor_Notes/img/457769fd.jpg" width="50%" />
 
 # 关联
 Has-A关系
@@ -37,7 +37,7 @@ Has-A关系
 
 如果特别强调方向，如下图，表示B知道A，但 A不知道B；
 
-<img src="img/43545432da.jpg" width="50%" />
+<img src="../Othor_Notes/img/43545432da.jpg" width="50%" />
 
 
 # 聚合
@@ -52,7 +52,7 @@ Has-A关系
 
 表示：聚合关系用一条带空心菱形箭头的直线表示
 
-<img src="img/4534534fjsd.jpg" width="50%" />
+<img src="../Othor_Notes/img/4534534fjsd.jpg" width="50%" />
 
 
 # 组合
@@ -61,7 +61,7 @@ Has-A关系
 
 表示：组合关系用一条带实心菱形箭头直线表示。
 
-<img src="img/4564645656fscas.jpg" width="50%" />
+<img src="../Othor_Notes/img/4564645656fscas.jpg" width="50%" />
 
 # 依赖与关联的区别
 
@@ -76,7 +76,7 @@ Has-A关系
 # 关系整合图
 
 来源于网上
-<img src="./img/9dc3cf58ccbf6c81a82b426bb53eb13532fa40d1.png" width="100%" />
+<img src="../Othor_Notes/img/9dc3cf58ccbf6c81a82b426bb53eb13532fa40d1.png" width="100%" />
 
 
 # 参考链接

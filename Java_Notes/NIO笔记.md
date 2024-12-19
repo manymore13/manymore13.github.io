@@ -22,7 +22,7 @@
 
 ## NIO 三大核心原理示意图
 
-![nio原理图](./img/nioylt.png)
+![nio原理图](../Othor_Notes/img/nioylt.png)
 
 1. 每个channel 都会对应一个Buffer
 2. Selector 对应一个线程， 一个线程对应多个channel(连接)

@@ -148,7 +148,7 @@ OKHttpClient,RealCall,Dispatcher,AsynCall
 [给 Android 开发者的 RxJava 详解](https://gank.io/post/560e15be2dca930e00da1083)
 
 1. 订阅流程
-<img src="./img/rxjava_subscribe.png" width="60%" />
+<img src="../Othor_Notes/img/rxjava_subscribe.png" width="60%" />
 从下游一层一层往上游订阅，订阅的时候会调用subscribeActual方法，而在这个方法里订阅上游，每订阅一层会创建一个Observer
 ，而Observer中持有下游的Observer，当订阅到最顶层的时候，事件创建者开始向下游分发事件比如onNext，onSuccess,往下游传递事件少不了每一层自己创建的Observer。
 测试代码如下：

@@ -37,7 +37,7 @@ C-->D(链接)
     ```
 选项-E让gcc在预处理结束后停止编译，test.i文件为预处理后输出的文件。-o指定输出文件
 - **编译(Compilation)**
-![编译](./img/编译.png)  
+![编译](../Othor_Notes/img/编译.png)  
     ```shell
     gcc -S test.i -o test.s
     ```

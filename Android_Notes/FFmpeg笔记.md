@@ -13,7 +13,7 @@
 4. ffmpeg主要工作流程
    解封装(Demuxing)->解码(Decoding)->编码(Encoding)->封装(Muxing)
 FFmpeg 的解封装( Demuxing )是指将读入的容器格式拆解开,将里面压缩的音频流 、视频流 、 字幕流、数据流等提取出来 , 如果要查看 FFmpeg 的源代码中都可以支持哪些输入的容器格式,可以通过命令./configure 一list-demuxers 来查看
-![](./img/ffmpeg转码工作流程.png)
+![](../Othor_Notes/img/ffmpeg转码工作流程.png)
 >ffmpeg 首先读取输入源;然后通过 Demuxer 将音视频包进行解封装,这个动作通过调用 libavformat 中的接口即可实现;接下来通过Decoder 进行解码,将音视频通过 Decoder 解包成为 YVU 或者 PCM 这样的数据, Decoder通过 libavcodec 中的接口即可实现;然后通过 Encoder 将对应的数据进行编码,编码可以通过 libavcodec 中的接口来实现;接下来将编码后的音视频数据包通过 Muxer 进行封装,Muxer 封装通过 libavformat 中的接口即可实现,输出成为输出流 。
 5. FFmpeg 的播放器 ffplay
 >ffplay 是 FFmpeg 源代码编译后生成的另一个可执行程序,与 ffmpeg 在 FFmpeg 项目中充当的角色基本相同,可以作为测试工具进行使用, ffplay 提供了 音视频显示和播放相关的图像信息、音频的波形信息等 。
@@ -65,11 +65,11 @@ sudo apt-get install ffmpeg
 
 ## 命令解释
 ### 录制视频命令
-![录制视频命令](./img/录制视频命令.png)
+![录制视频命令](../Othor_Notes/img/录制视频命令.png)
 ### 处理原始数据
-![处理原始数据](./img/处理原始数据.png)
+![处理原始数据](../Othor_Notes/img/处理原始数据.png)
 ### 分解复用命令
-![分解复用命令](./img/分解复用命令.png)
+![分解复用命令](../Othor_Notes/img/分解复用命令.png)
 
  
 ## 简介，上手(FFmpeg FFprobe FFplay)
