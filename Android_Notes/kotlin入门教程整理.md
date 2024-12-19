@@ -1,11 +1,11 @@
-Title: Kotlin入门教程整理
-Date: 2020-1-2 14:23:38
-Category: 计算机
-Tags:Android,Kotlin
-
-# Kotlin入门教程整理
-
-----
+---
+title: Kotlin入门教程整理
+date: 2020-1-2 14:23:38
+tags: 
+  - Android
+  - Kotlin
+cover: https://raw.githubusercontent.com/manymore13/img/main/huangshan.jpg
+---
 
 ## Kotlin基础语法
 

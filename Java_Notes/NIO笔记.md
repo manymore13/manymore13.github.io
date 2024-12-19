@@ -1,8 +1,19 @@
-# NIO笔记
+---
+title: NIO笔记
+date: 2020-1-2 10:23:18
+categories: 
+  - 技术
+  - java
+tags:
+  - java
+  - NIO
+---
 
 ## BIO
 
 输入流就是把数据（键盘输入、鼠标、扫描仪等等外设设备）读入到内存（程序）中，输出流就是把内存（程序）中的数据输出到外设或其他地方，从文件角度简单总结就是，输入流就是读数据，输出流就是写数据。在这个过程中，始终把内存作为参考点。
+
+
 
 ## java NIO基本介绍
 
@@ -22,7 +33,7 @@
 
 ## NIO 三大核心原理示意图
 
-![nio原理图](../Othor_Notes/img/nioylt.png)
+![nio原理图](../Other_Notes/img/nioylt.png)
 
 1. 每个channel 都会对应一个Buffer
 2. Selector 对应一个线程， 一个线程对应多个channel(连接)
@@ -124,4 +135,3 @@ public static void main(String[] args)  throws Exception {
         fileOutputStream.close();
     }
 ```
-
