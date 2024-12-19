@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>UML类图关系</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+    <meta name="description" content="在UML类图中，常见的有以下几种关系: 继承(泛化) 继承也被称为Is-A关系, 自行车是车、猫是动物 表示：泛化关系用一条带空心箭头的直接表 …" />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">manymore13'notes</a></h1>
+                        <nav><ul>
+                                                <li><a href="/category/android_notes.html">Android_Notes</a></li>
+                                                <li><a href="/category/financial_notes.html">Financial_Notes</a></li>
+                                                <li><a href="/category/gu-zhi-gong-ju.html">估值工具</a></li>
+                                                <li class="active"><a href="/category/java_notes.html">Java_Notes</a></li>
+                                                <li><a href="/category/ji-suan-ji.html">计算机</a></li>
+                                                <li><a href="/category/jie-zhi.html">价值</a></li>
+                                                <li><a href="/category/life_notes.html">Life_Notes</a></li>
+                                                <li><a href="/category/python_notes.html">Python_Notes</a></li>
+                                                <li><a href="/category/review.html">Review</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/umllei-tu-guan-xi.html" rel="bookmark"
+             title="Permalink to UML类图关系">UML类图关系</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-01-08T18:23:00+08:00">
+                Published: Fri 08 January 2021
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/manymore13.html">manymore13</a>
+                </address>
+        <p>In <a href="/category/java_notes.html">Java_Notes</a>.</p>
+<p>tags: <a href="/tag/uml.html">UML</a> </p>        
+</footer><!-- /.post-info -->        <p>在UML类图中，常见的有以下几种关系: </p>
+<h1>继承(泛化)</h1>
+<p>继承也被称为Is-A关系, 自行车是车、猫是动物</p>
+<p>表示：泛化关系用一条带空心箭头的直接表示</p>
+<p><img src="../Othor_Notes/img/3424242343.jpg" width="50%" /></p>
+<h1>实现</h1>
+<p>接口实现</p>
+<p><img src="../Othor_Notes/img/1582868458sadasda.jpg" width="50%" /></p>
+<h1>依赖</h1>
+<p>Uses-A 关系</p>
+<p>它用于定义一个类以某种方式依赖于另一个类，而另一个类可能依赖于或不依赖于第一个类。通常，在面向对象的编程语言中，依赖关系用于描述一个类在方法的声明中是否包含第二个类的参数，或者说它只是通过方法将第二个类传递给其他类，而不是使用方法来创建第二个类的实例。</p>
+<p>依赖也有方向，双向依赖是一种非常糟糕的结构，我们总是应该保持单向依赖，杜绝双向依赖的产生；</p>
+<p>在最终代码中，依赖关系体现为<strong>类构造方法</strong>及<strong>类方法</strong>的传入参数，箭头的指向为调用关系；依赖关系除了临时知道对方外，还是“使用”对方的方法和属性；</p>
+<p>表示：依赖关系是用一套带箭头的虚线表示的。B依赖于A，描述一个对象在运行期间会用到另一个对象的关系</p>
+<p><img src="../Othor_Notes/img/457769fd.jpg" width="50%" /></p>
+<h1>关联</h1>
+<p>Has-A关系</p>
+<p>关联表示两个实体之间的关系。有两种类型的关联：组合和聚合。通常，关联关系由箭头表示。</p>
+<p>如果特别强调方向，如下图，表示B知道A，但 A不知道B；</p>
+<p><img src="../Othor_Notes/img/43545432da.jpg" width="50%" /></p>
+<h1>聚合</h1>
+<p>整体和部分不是强依赖的。</p>
+<p>一个类在逻辑上包含另一个类，但所包含的类的实例又可以独立于第一个类在其上下文之外生存，或者可以被其他的类所引用。</p>
+<p>例如，部门与教师间存在Has-A关系，每位教师必须属于部门，但如果部门不再存在，教师仍然可以处于活动状态,</p>
+<p>老师聚合到部门上，或者部门由老师组成。</p>
+<p>表示：聚合关系用一条带空心菱形箭头的直线表示</p>
+<p><img src="../Othor_Notes/img/4534534fjsd.jpg" width="50%" /></p>
+<h1>组合</h1>
+<p>一个类是另一个类的组成部分就称两者间存在组合关系。这有点类似于聚合，不同之处在于当主类不再存在时，依赖类不再存在。例如，房子（House）由房间（Room）组成，但如果房子被销毁，房间就不再存在，</p>
+<p>表示：组合关系用一条带实心菱形箭头直线表示。</p>
+<p><img src="../Othor_Notes/img/4564645656fscas.jpg" width="50%" /></p>
+<h1>依赖与关联的区别</h1>
+<p>关联：互相贯连的意思，是比较强的关系，是长期关系。
+类A关联B的含义是：如果实例化一个A类的对象，同时会有一个B类的对象被实例化。</p>
+<p>依赖：成瘾的意思，玩游戏上瘾，你也可以戒掉，所以依赖只是临时关系</p>
+<h1>关系整合图</h1>
+<p>来源于网上
+<img src="../Othor_Notes/img/9dc3cf58ccbf6c81a82b426bb53eb13532fa40d1.png" width="100%" /></p>
+<h1>参考链接</h1>
+<ol>
+<li><a href="https://design-patterns.readthedocs.io/zh_CN/latest/read_uml.html#id2">看懂UML类图和时序图</a></li>
+<li><a href="https://jingyan.baidu.com/article/ad310e80f7d5c01848f49e6b.html">UML类图几种关系的总结（图文并茂、案例详解）</a></li>
+<li><a href="https://www.jianshu.com/p/fe949c2f081a">继承、实现、依赖、关联、聚合、组合的联系与区别</a></li>
+<li><a href="https://blog.csdn.net/ochangwen/article/details/72621702">UML类图关系(泛化 、实现、依赖、关联、聚合、组合)</a></li>
+<li><a href="https://www.cnblogs.com/olvo/archive/2012/05/03/2481014.html">UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合）</a></li>
+</ol>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="blogroll">
+                                        <h2>links</h2>
+                                        <ul>
+                                                        <li><a href="https://getpelican.com/">Pelican</a></li>
+                                                        <li><a href="https://www.python.org/">Python.org</a></li>
+                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                        <li><a href="#">You can modify those links in your config file</a></li>
+                                        </ul>
+                                </div><!-- /.blogroll -->
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+
+                                                        <li><a href="#">You can add links in your config file</a></li>
+                                                        <li><a href="#">Another social link</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
