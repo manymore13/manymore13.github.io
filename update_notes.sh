@@ -29,4 +29,6 @@ git config --global user.name "github-actions"
 git config --global user.email "github-actions@github.com"
 git add .
 git commit -m "Automated update notes" || echo "No changes to commit"
+cd manymore13.github.io
+git branch
 git push origin gh-pages
