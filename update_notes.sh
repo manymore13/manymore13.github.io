@@ -13,6 +13,9 @@ cd manymore13.github.io
 git checkout gh-pages
 cd ..
 
+# 确保 content/ 目录存在
+mkdir -p content
+
 # 清理旧文件并复制新内容
 rm -rf docs/*
 rm -rf content/*
