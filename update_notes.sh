@@ -27,7 +27,7 @@ pelican content
 # 提交和推送更改
 cd manymore13.github.io
 git branch
-git config --global user.name "action"
+git config --global user.name "manymore13"
 git config --global user.email "action@qq.com"
 git add .
 git commit -m "Automated update notes" || echo "No changes to commit"
