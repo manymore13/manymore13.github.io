@@ -34,6 +34,7 @@ rm -rf ../../temp
 # 提交和推送更改
 echo "------------------"
 git branch
+git config --global url.https://${GH_TOKEN}@github.com/.insteadOf https://github.com/
 git config --local user.name "github-actions[bot]"
 git config --local user.email "github-actions[bot]@users.noreply.github.com"
 git add .
