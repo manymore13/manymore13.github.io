@@ -7,6 +7,16 @@
   <title>多线程相关笔记 &mdash; manymore13'notes</title>
   <meta name="author" content="manymore13">
 
+  <link rel="canonical" href="/duo-xian-cheng-xiang-guan-bi-ji.html"/>
+  
+  <meta property="og:site_name" content="manymore13'notes" />
+  <meta property="og:type" content="article" />
+    
+  <meta property="og:title" content="多线程相关笔记" />
+  <meta property="og:url" content="/duo-xian-cheng-xiang-guan-bi-ji.html" />
+  <meta property="og:description" content="Android 多线程 概念 同步与异步 同步和异步通常用来形容一次方法调用。同步方法调用一旦开始，调用者必须等到方法调用返 …" />
+  <meta property="article:published_time" content="2020-01-05 14:00:00+08:00" />
+
 
 
 
@@ -27,10 +37,16 @@
         rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
         rel="stylesheet" type="text/css">
+
+  <script src="/theme/js/modernizr-2.0.js"></script>
+  <script src="/theme/js/ender.js"></script>
+  <script src="/theme/js/octopress.js" type="text/javascript"></script>
 </head>
 
-<body>
-  <header role="banner"><hgroup>
+<body >
+  <header role="banner"
+  >
+<hgroup>
   <h1><a href="/">manymore13'notes</a></h1>
 </hgroup></header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
@@ -70,10 +86,11 @@
 <header>
       <h1 class="entry-title">多线程相关笔记</h1>
     <p class="meta">
-<time datetime="2020-01-05T14:00:00+08:00" pubdate>Sun 05 January 2020</time>    </p>
+<time datetime="2020-01-05T14:00:00+08:00" pubdate>Sun 05 January 2020</time>      
+    </p>
 </header>
 
-  <div class="entry-content"><ul>
+    <div class="entry-content"><ul>
 <li>Android</li>
 <li>多线程</li>
 </ul>
@@ -405,48 +422,43 @@ Thread.stop()方法在结束线程时，会直接终止线程，并立即释放�
   </article>
 
 </div>
+
 <aside class="sidebar">
-  <section>
-    <h1>Recent Posts</h1>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    <li class="post">
+        <a href="/ji-zhu-wen-zhang-sou-ji.html">技术文章搜集</a>
+    </li>
+    <li class="post">
+        <a href="/gu-zhi-gong-ju.html">估值工具</a>
+    </li>
+    <li class="post">
+        <a href="/pa-chong-bi-ji.html">爬虫笔记</a>
+    </li>
+    <li class="post">
+        <a href="/cai-wu-bao-biao.html">财务报表</a>
+    </li>
+    <li class="post">
+        <a href="/tou-zi-ji-si-lu.html">投资集思录</a>
+    </li>
+  </ul>
+</section><section>
+  <h1>Categories</h1>
     <ul id="recent_posts">
-      <li class="post">
-          <a href="/ji-zhu-wen-zhang-sou-ji.html">技术文章搜集</a>
-      </li>
-      <li class="post">
-          <a href="/gu-zhi-gong-ju.html">估值工具</a>
-      </li>
-      <li class="post">
-          <a href="/pa-chong-bi-ji.html">爬虫笔记</a>
-      </li>
-      <li class="post">
-          <a href="/cai-wu-bao-biao.html">财务报表</a>
-      </li>
-      <li class="post">
-          <a href="/tou-zi-ji-si-lu.html">投资集思录</a>
-      </li>
-    </ul>
-  </section>
-  <section>
-      
-    <h1>Categories</h1>
-    <ul id="recent_posts">
-        <li><a href="/category/android_notes.html">Android_Notes</a></li>
-        <li><a href="/category/financial_notes.html">Financial_Notes</a></li>
-        <li><a href="/category/gu-zhi-gong-ju.html">估值工具</a></li>
-        <li><a href="/category/java_notes.html">Java_Notes</a></li>
-        <li><a href="/category/ji-suan-ji.html">计算机</a></li>
-        <li><a href="/category/jie-zhi.html">价值</a></li>
-        <li><a href="/category/life_notes.html">Life_Notes</a></li>
-        <li><a href="/category/python_notes.html">Python_Notes</a></li>
-    </ul>
-  </section>
- 
-
-  <section>
+      <li><a href="/category/android_notes.html">Android_Notes (3)</a></li>
+      <li><a href="/category/financial_notes.html">Financial_Notes (1)</a></li>
+      <li><a href="/category/gu-zhi-gong-ju.html">估值工具 (1)</a></li>
+      <li><a href="/category/java_notes.html">Java_Notes (3)</a></li>
+      <li><a href="/category/ji-suan-ji.html">计算机 (3)</a></li>
+      <li><a href="/category/jie-zhi.html">价值 (2)</a></li>
+      <li><a href="/category/life_notes.html">Life_Notes (1)</a></li>
+      <li><a href="/category/python_notes.html">Python_Notes (2)</a></li>
+  </ul>
+</section>
+<section>
   <h1>Tags</h1>
-    <a href="/tag/android.html">Android</a>,    <a href="/tag/sou-ji.html">搜集</a>,    <a href="/tag/gu-zhi.html">估值</a>,    <a href="/tag/gong-ju.html">工具</a>,    <a href="/tag/li-cai.html">理财</a>,    <a href="/tag/jin-rong.html">金融</a>,    <a href="/tag/uml.html">UML</a>,    <a href="/tag/kai-yuan.html">开源</a>,    <a href="/tag/du-shu.html">读书</a>,    <a href="/tag/xie-cheng.html">协程</a>  </section>
-
-
+    <a href="/tag/android.html">Android</a>,    <a href="/tag/sou-ji.html">搜集</a>,    <a href="/tag/gu-zhi.html">估值</a>,    <a href="/tag/gong-ju.html">工具</a>,    <a href="/tag/li-cai.html">理财</a>,    <a href="/tag/jin-rong.html">金融</a>,    <a href="/tag/uml.html">UML</a>,    <a href="/tag/kai-yuan.html">开源</a>,    <a href="/tag/du-shu.html">读书</a>,    <a href="/tag/xie-cheng.html">协程</a></section>
     <section>
         <h1>Social</h1>
         <ul>
@@ -464,14 +476,13 @@ Thread.stop()方法在结束线程时，会直接终止线程，并立即释放�
         </ul>
     </section>
 
-</aside>    </div>
+</aside>
+    </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
     Copyright &copy;  2020&ndash;2023  manymore13 &mdash;
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
-</p></footer>
-  <script src="/theme/js/modernizr-2.0.js"></script>
-  <script src="/theme/js/ender.js"></script>
-  <script src="/theme/js/octopress.js" type="text/javascript"></script>
+</p>  </footer>
 </body>
 </html>
