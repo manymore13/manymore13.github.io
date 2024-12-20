@@ -36,3 +36,5 @@ DEFAULT_PAGINATION = 10
 OUTPUT_PATH = 'docs/'
 
 STATIC_PATHS = ['Othor_Notes/img']
+
+THEME = "theme/pelican-octopress-theme"
