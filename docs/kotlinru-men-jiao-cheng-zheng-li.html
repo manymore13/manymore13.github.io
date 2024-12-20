@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Kotlin入门教程整理</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+    <meta name="description" content="Android Kotlin cover: https://raw.githubusercontent.com/manymore13/img/main/huangshan.jpg Kotlin基础语法 在 Kotlin 中，所有东西都是对象 注释 与大多数现代语言一样，Kotlin..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">manymore13'notes</a></h1>
+                        <nav><ul>
+                                                <li class="active"><a href="/category/android_notes.html">Android_Notes</a></li>
+                                                <li><a href="/category/financial_notes.html">Financial_Notes</a></li>
+                                                <li><a href="/category/gu-zhi-gong-ju.html">估值工具</a></li>
+                                                <li><a href="/category/java_notes.html">Java_Notes</a></li>
+                                                <li><a href="/category/ji-suan-ji.html">计算机</a></li>
+                                                <li><a href="/category/jie-zhi.html">价值</a></li>
+                                                <li><a href="/category/life_notes.html">Life_Notes</a></li>
+                                                <li><a href="/category/python_notes.html">Python_Notes</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/kotlinru-men-jiao-cheng-zheng-li.html" rel="bookmark"
+             title="Permalink to Kotlin入门教程整理">Kotlin入门教程整理</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-01-02T14:23:38+08:00">
+                Published: Thu 02 January 2020
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/manymore13.html">manymore13</a>
+                </address>
+        <p>In <a href="/category/android_notes.html">Android_Notes</a>.</p>
+        
+</footer><!-- /.post-info -->        <ul>
+<li>Android</li>
+<li>Kotlin
+cover: https://raw.githubusercontent.com/manymore13/img/main/huangshan.jpg</li>
+</ul>
+<hr>
+<h2>Kotlin基础语法</h2>
+<blockquote>
+<p>在 Kotlin 中，所有东西都是对象</p>
+</blockquote>
+<h3>注释</h3>
+<p>与大多数现代语言一样，Kotlin 支持单行（或行末）与多行（块）注释。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 这是单行注释</span>
+
+<span class="cm">/* 这是多行</span>
+<span class="cm">   块注释。 */</span>
+
+<span class="c1">// Kotlin 中的块注释可以嵌套</span>
+<span class="cm">/* 注释从这里开始</span>
+<span class="cm">/* 包含嵌套的注释 */</span><span class="w"> </span>
+
+<span class="err">并且在这里结束。</span><span class="w"> </span><span class="o">*/</span>
+</code></pre></div>
+
+<h3>类型声明</h3>
+<ul>
+<li><strong>使用关键字val 定义只读局部变量，只能为其赋值一次</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">a</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w">  </span><span class="c1">// 立即赋值</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">   </span><span class="c1">// 自动推断出 `Int` 类型</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">c</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w">  </span><span class="c1">// 如果没有初始值类型不能省略</span>
+<span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w">       </span><span class="c1">// 明确赋值</span>
+</code></pre></div>
+
+<ul>
+<li><strong>使用 var 关键字, 可重新赋值的变量</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// 自动推断出 `Int` 类型</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>
+
+<span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+
+<h3>字符串模板</h3>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="c1">// 模板中的简单名称：</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;a is </span><span class="si">$</span><span class="n">a</span><span class="s">&quot;</span><span class="w"> </span>
+
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<span class="c1">// 模板中的任意表达式：</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="si">${</span><span class="n">s1</span><span class="p">.</span><span class="na">replace</span><span class="p">(</span><span class="s">&quot;</span><span class="k">is</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="n">was</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">, but now is </span><span class="si">$</span><span class="n">a</span><span class="s">&quot;</span>
+</code></pre></div>
+
+<h3>声明函数返回值类型</h3>
+<ol>
+<li>使用关键字<strong>fun</strong>定义<strong>sum</strong>函数，两个<strong>Int</strong>参数，返回<strong>Int</strong>函数</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>将表达式作为函数体、返回值类型自动推断的函数</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div>
+
+<ol>
+<li>函数返回无意义的值</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">printSum</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Unit</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;sum of </span><span class="si">$</span><span class="n">a</span><span class="s"> and </span><span class="si">$</span><span class="n">b</span><span class="s"> is </span><span class="si">${</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Unit 返回类型可以省略</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">printSum</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;sum of </span><span class="si">$</span><span class="n">a</span><span class="s"> and </span><span class="si">$</span><span class="n">b</span><span class="s"> is </span><span class="si">${</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>条件表达式</h3>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">maxof</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">b</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>也可以这么写</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">maxOf</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div>
+
+<h3>空值与 null 检测</h3>
+<p>当某个变量的值可以为 null 的时候，必须在声明处的类型后添加?来标识该引用可为空。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 如果 str 的内容不是数字返回 null</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">parseInt</span><span class="p">(</span><span class="n">str</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ……</span>
+<span class="p">}</span>
+<span class="c1">// 使用返回可空值的函数</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">printProduct</span><span class="p">(</span><span class="n">arg1</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">arg2</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parseInt</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parseInt</span><span class="p">(</span><span class="n">arg2</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// 直接使用 `x * y` 会导致编译错误，因为它们可能为 null</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 在空检测后，x 与 y 会自动转换为非空值（non-nullable）</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&#39;</span><span class="si">$</span><span class="n">arg1</span><span class="s">&#39; or &#39;</span><span class="si">$</span><span class="n">arg2</span><span class="s">&#39; is not a number&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w">    </span>
+<span class="p">}</span>
+
+<span class="c1">// 或者这么使用</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Wrong number format in arg1: &#39;</span><span class="si">$</span><span class="n">arg1</span><span class="s">&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Wrong number format in arg2: &#39;</span><span class="si">$</span><span class="n">arg2</span><span class="s">&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// 在空检测后，x 与 y 会自动转换为非空值</span>
+<span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>类型检测与自动类型转换</h3>
+<p>is 运算符检测一个表达式是否某类型的一个实例。 如果一个不可变的局部变量或属性已经判断出为某类型，那么检测后的分支中可以直接当作该类型使用，无需显式转换。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// eg1</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">getStringLength</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="p">):</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">obj</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// `obj` 在该条件分支内自动转换成 `String`</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="na">length</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 在离开类型检测分支后，`obj` 仍然是 `Any` 类型</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+<span class="c1">// eg2</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">getStringLength</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="p">):</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">obj</span><span class="w"> </span><span class="k">!is</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span>
+
+<span class="w">    </span><span class="c1">// `obj` 在这一分支自动转换为 `String`</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="na">length</span>
+<span class="p">}</span>
+<span class="c1">// eg3</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">getStringLength</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="p">):</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// `obj` 在 `&amp;&amp;` 右边自动转换成 `String` 类型</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">obj</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="na">length</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>循环</h3>
+<ol>
+<li>for循环</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;apple&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;banana&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kiwifruit&quot;</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;apple&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;banana&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kiwifruit&quot;</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">indices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;item at </span><span class="si">$</span><span class="n">index</span><span class="s"> is </span><span class="si">${</span><span class="n">items</span><span class="o">[</span><span class="n">index</span><span class="o">]</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>while循环</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;apple&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;banana&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kiwifruit&quot;</span><span class="p">)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nv">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;item at </span><span class="si">$</span><span class="n">index</span><span class="s"> is </span><span class="si">${</span><span class="n">items</span><span class="o">[</span><span class="n">index</span><span class="o">]</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">index</span><span class="o">++</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>when表达式</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="p">):</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="m">1</span><span class="w">          </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;One&quot;</span>
+<span class="w">        </span><span class="s">&quot;Hello&quot;</span><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Greeting&quot;</span>
+<span class="w">        </span><span class="k">is</span><span class="w"> </span><span class="kt">Long</span><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Long&quot;</span>
+<span class="w">        </span><span class="k">!is</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Not a string&quot;</span>
+<span class="w">        </span><span class="k">else</span><span class="w">       </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>使用区间（range）
+使用 in 运算符来检测某个数字是否在指定区间内</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">9</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="na">y</span><span class="o">+</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;fits in range&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>检测某个数字是否在指定区间外</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="w"> </span><span class="k">!in</span><span class="w"> </span><span class="m">0.</span><span class="p">.</span><span class="na">list</span><span class="p">.</span><span class="na">lastIndex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;-1 is out of range&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">list</span><span class="p">.</span><span class="na">size</span><span class="w"> </span><span class="k">!in</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">indices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;list size is out of valid list indices range, too&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>区间迭代</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>数列迭代</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">println</span><span class="p">()</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="n">downTo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>集合</h3>
+<ol>
+<li>对集合进行迭代</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>使用 in 运算符来判断集合内是否包含某实例</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;orange&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;juicy&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="s">&quot;apple&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;apple is fine too&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>使用 lambda 表达式来过滤（filter）与映射（map）集合</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">fruits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;banana&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;avocado&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;apple&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kiwifruit&quot;</span><span class="p">)</span>
+<span class="n">fruits</span>
+<span class="w">  </span><span class="p">.</span><span class="na">filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="na">sortedBy</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">toUpperCase</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<h3>创建基本类及其实例</h3>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">rectangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="m">5.0</span><span class="p">,</span><span class="w"> </span><span class="m">2.0</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">triangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Triangle</span><span class="p">(</span><span class="m">3.0</span><span class="p">,</span><span class="w"> </span><span class="m">4.0</span><span class="p">,</span><span class="w"> </span><span class="m">5.0</span><span class="p">)</span>
+</code></pre></div>
+
+<ol>
+<li>类的修饰符</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// 类属性修饰符</span>
+<span class="n">abstract</span><span class="w">    </span><span class="c1">// 抽象类  </span>
+<span class="n">final</span><span class="w">       </span><span class="c1">// 类不可继承，默认属性</span>
+<span class="n">enum</span><span class="w">        </span><span class="c1">// 枚举类</span>
+<span class="n">open</span><span class="w">        </span><span class="c1">// 类可继承，类默认是final的</span>
+<span class="n">annotation</span><span class="w">  </span><span class="c1">// 注解类</span>
+
+<span class="c1">// 访问权限修饰符</span>
+<span class="n">private</span><span class="w">    </span><span class="c1">// 仅在同一个文件中可见</span>
+<span class="n">protected</span><span class="w">  </span><span class="c1">// 同一个文件中或子类可见</span>
+<span class="n">public</span><span class="w">     </span><span class="c1">// 所有调用的地方都可见</span>
+<span class="n">internal</span><span class="w">   </span><span class="c1">// 同一个模块中可见</span>
+</code></pre></div>
+
+<ol>
+<li>内部类与嵌套类</li>
+<li>构造器</li>
+</ol>
+<p>在kotlin中有主，次两种构造器，写在类名后面的是<strong>主构造器</strong>，在类中的是<strong>次构造器</strong>，次构造器必须调用主构造器
+，一个类最多只能有1个主构造器（也可以没有），而次构造器是没有个数限制。</p>
+<p>主构造器中的参数在类的属性中使用，也可以在init代码块中使用。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="k">constructor</span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="k">init</span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="k">this</span><span class="p">(</span><span class="n">name</span><span class="p">){</span>
+
+<span class="w">    </span><span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>主构造器里直接声明属性</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="p">}</span>
+<span class="c1">// 等价于：</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>嵌套类</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">Outer</span><span class="w"> </span><span class="p">{</span><span class="w">                  </span><span class="c1">// 外部类</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">bar</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Nested</span><span class="w"> </span><span class="p">{</span><span class="w">             </span><span class="c1">// 嵌套类</span>
+<span class="w">        </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Outer</span><span class="p">.</span><span class="na">Nested</span><span class="p">().</span><span class="na">foo</span><span class="p">()</span><span class="w"> </span><span class="c1">// 调用格式：外部类.嵌套类.嵌套类方法/属性</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">demo</span><span class="p">)</span><span class="w">    </span><span class="c1">// == 2</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>内部类<blockquote>
+<p>内部类使用 inner 关键字来表示。内部类会带有一个对外部类的对象的引用，所以内部类可以访问外部类成员属性和成员函数</p>
+</blockquote>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">Outer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">bar</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;成员属性&quot;</span>
+<span class="w">    </span><span class="cm">/**嵌套内部类**/</span>
+<span class="w">    </span><span class="kd">inner</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Inner</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bar</span><span class="w">  </span><span class="c1">// 访问外部类成员</span>
+<span class="w">        </span><span class="kd">fun</span><span class="w"> </span><span class="nf">innerTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nv">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="nd">@Outer</span><span class="w"> </span><span class="c1">//获取外部类的成员变量</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;内部类可以引用外部类的成员，例如：&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="na">v</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Outer</span><span class="p">().</span><span class="na">Inner</span><span class="p">().</span><span class="na">foo</span><span class="p">()</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">demo</span><span class="p">)</span><span class="w"> </span><span class="c1">//   1</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">demo2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Outer</span><span class="p">().</span><span class="na">Inner</span><span class="p">().</span><span class="na">innerTest</span><span class="p">()</span><span class="w"> </span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">demo2</span><span class="p">)</span><span class="w">   </span><span class="c1">// 内部类可以引用外部类的成员，例如：成员属性</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>为了消除歧义，要访问来自外部作用域的 this，我们使用this@label，其中 @label 是一个 代指 this 来源的标签。</p>
+<ul>
+<li>匿名内部类</li>
+</ul>
+<p>使用对象表达式来创建匿名内部类：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">Test</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;成员属性&quot;</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setInterFace</span><span class="p">(</span><span class="n">test</span><span class="p">:</span><span class="w"> </span><span class="n">TestInterFace</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">test</span><span class="p">.</span><span class="na">test</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 定义接口</span>
+<span class="cm"> */</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nc">TestInterFace</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test</span><span class="p">()</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * 采用对象表达式来创建接口对象，即匿名内部类的实例。</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">test</span><span class="p">.</span><span class="na">setInterFace</span><span class="p">(</span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">TestInterFace</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;对象表达式创建匿名内部类的实例&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>接口</h3>
+<p>使用 interface 关键字定义接口，允许方法有默认实现</p>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">MyInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w">    </span><span class="c1">// 未实现</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">//已实现</span>
+<span class="w">      </span><span class="c1">// 可选的方法体</span>
+<span class="w">      </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>实现接口
+一个类或者对象可以实现一个或多个接口</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">Child</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MyInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 方法体</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>函数重写</li>
+</ul>
+<p>实现多个接口时，可能会遇到同一方法继承多个实现的问题</p>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// 已实现</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w">                  </span><span class="c1">// 未实现，没有方法体，是抽象的</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// 已实现</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// 已实现</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">C</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// 重写</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">D</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">super</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">.</span><span class="na">foo</span><span class="p">()</span>
+<span class="w">        </span><span class="k">super</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">.</span><span class="na">foo</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">super</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">.</span><span class="na">bar</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">d</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">D</span><span class="p">()</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="na">foo</span><span class="p">();</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3>匿名函数和高阶函数</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * 匿名函數</span>
+<span class="cm"> */</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">stringLengFunc</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">input</span><span class="p">.</span><span class="na">length</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 高阶函数</span>
+<span class="cm"> */</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">stringMapper</span><span class="p">(</span><span class="n">str</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">mapper</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Invoke function</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mapper</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">stringLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringLengFunc</span><span class="p">(</span><span class="s">&quot;Android&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringMapper</span><span class="p">(</span><span class="s">&quot;Android1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stringLengFunc</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<h3><a href="http://www.kotlincn.net/docs/reference/operator-overloading.html">操作符</a></h3>
+<p>代码例子：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">counter1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">counter2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">counter1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">counter2</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="m">100L</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Counter</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">dayIndex</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">plus</span><span class="p">(</span><span class="n">increment</span><span class="p">:</span><span class="w"> </span><span class="n">Counter</span><span class="p">):</span><span class="w"> </span><span class="n">Counter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="n">dayIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">increment</span><span class="p">.</span><span class="na">dayIndex</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">minus</span><span class="p">(</span><span class="n">decrement</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Counter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="n">dayIndex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">decrement</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nc">Clock</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">uptimeMillis</span><span class="p">():</span><span class="w"> </span><span class="kt">Long</span>
+
+<span class="w">    </span><span class="kd">companion</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="kd">inline</span><span class="w"> </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">crossinline</span><span class="w"> </span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Long</span><span class="p">):</span><span class="w"> </span><span class="n">Clock</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">Clock</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">uptimeMillis</span><span class="p">():</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block</span><span class="p">()</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3><a href="https://www.kotlincn.net/docs/reference/scope-functions.html">作用域函数</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>对象引用</th>
+<th>返回值</th>
+<th>是否时扩展函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>let</td>
+<td>it</td>
+<td>Lambda 表达式结果</td>
+<td>是</td>
+</tr>
+<tr>
+<td>run</td>
+<td>this</td>
+<td>Lambda 表达式结果</td>
+<td>是</td>
+</tr>
+<tr>
+<td>with</td>
+<td>this</td>
+<td>Lambda 表达式结果</td>
+<td>不是：把上下文对象当作参数</td>
+</tr>
+<tr>
+<td>apply</td>
+<td>this</td>
+<td>上下文对象</td>
+<td>是</td>
+</tr>
+<tr>
+<td>also</td>
+<td>it</td>
+<td>上下文对象</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h2>范型</h2>
+<p><a href="https://www.zhihu.com/question/20400700">Java 泛型 &lt;? super T&gt; 中 super 怎么 理解？与 extends 有何不同？</a>
+out 相当于java里面的 &lt;? extend&gt;
+in 相当于java里面的 &lt;? super&gt;</p>
+<h2>零散点记</h2>
+<h3>注解</h3>
+<p>@file:JvmName("BarChartKit")</p>
+<p>@JvmStatic</p>
+<p><a href="https://www.jianshu.com/p/72d1959a7c56">Kotlin中@JvmOverloads 注解</a></p>
+<p><a href="https://blog.csdn.net/lv_fq/article/details/72869124">kotlin 双冒号</a>
+Kotlin 中 双冒号操作符 表示把一个方法当做一个参数，传递到另一个方法中进行使用，通俗的来讲就是引用一个方法。</p>
+<h2>参考链接</h2>
+<ol>
+<li><a href="https://kaixue.io/kotlin-basic-1/">Kotlin 的变量、函数和类型</a></li>
+<li><a href="https://kaixue.io/kotlin-basic-2/">Kotlin 里那些「不是那么写的」</a></li>
+<li><a href="https://kaixue.io/kotlin-basic-3/">Kotlin 里那些「更方便的</a></li>
+<li><a href="https://blog.csdn.net/deng_hui_long/article/details/108969021">Kotlin StateFlow 搜索功能的实践 DB + NetWork</a></li>
+</ol>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="blogroll">
+                                        <h2>links</h2>
+                                        <ul>
+                                                        <li><a href="https://getpelican.com/">Pelican</a></li>
+                                                        <li><a href="https://www.python.org/">Python.org</a></li>
+                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                        <li><a href="#">You can modify those links in your config file</a></li>
+                                        </ul>
+                                </div><!-- /.blogroll -->
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+
+                                                        <li><a href="#">You can add links in your config file</a></li>
+                                                        <li><a href="#">Another social link</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>

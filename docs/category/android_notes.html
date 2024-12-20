@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>manymore13'notes - Android_Notes</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">manymore13'notes</a></h1>
+                        <nav><ul>
+                                                <li class="active"><a href="/category/android_notes.html">Android_Notes</a></li>
+                                                <li><a href="/category/financial_notes.html">Financial_Notes</a></li>
+                                                <li><a href="/category/gu-zhi-gong-ju.html">估值工具</a></li>
+                                                <li><a href="/category/java_notes.html">Java_Notes</a></li>
+                                                <li><a href="/category/ji-suan-ji.html">计算机</a></li>
+                                                <li><a href="/category/jie-zhi.html">价值</a></li>
+                                                <li><a href="/category/life_notes.html">Life_Notes</a></li>
+                                                <li><a href="/category/python_notes.html">Python_Notes</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+
+                <aside id="featured" class="body">
+                    <article>
+                        <h1 class="entry-title"><a href="/androidmian-shi-ti-zheng-li.html">Android面试题整理</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-02-07T18:23:53+08:00">
+                Published: Fri 07 February 2020
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/manymore13.html">manymore13</a>
+                </address>
+        <p>In <a href="/category/android_notes.html">Android_Notes</a>.</p>
+        
+</footer><!-- /.post-info --><ul>
+<li>Android</li>
+<li>面试</li>
+</ul>
+<hr>
+<h2>Android Handler消息机制</h2>
+<blockquote>
+<p><a href="https://juejin.im/post/5c74b64a6fb9a049be5e22fc#heading-17">参考链接</a></p>
+</blockquote>
+<ol>
+<li>Handler 的背后有 Looper、MessageQueue 支撑，Looper 负责消息分发，MessageQueue 负责消息管理；</li>
+<li>在创建 Handler 之前一定需要先创建 Looper；</li>
+<li>Looper 有退出的功能，但是主线程的 Looper 不允许退出；</li>
+<li>异步线程的 Looper 需要自己调用 Looper.myLooper().quit();  退出；</li>
+<li>Runnable 被封装进了 Message，可以说是一个特殊的 Message；</li>
+<li>Handler.handleMessage() 所在的线程是 Looper.loop() 方法被调用的线程，也可以说成 Looper 所在的线程，并不是创建 Handler 的线程；</li>
+<li>使用内部类的方式使用 Handler 可能会导致内存泄露，即便在 Activity.onDestroy 里移除延时消息，必须要写成静态内部类；</li>
+<li><a href="https://www.zhihu.com/question/34652589/answer/90344494">Android中为什么主线程不会因为Looper.loop()里的死循环卡死？</a> 阻塞线程，处于休眠状态，但不耗用CPU资源</li>
+<li><a href="https://blog.csdn.net/gs344937933/article/details/89815855">Android卡顿优化--卡顿检测</a> 卡顿检测工具里面有用到Looper</li>
+</ol>
+<p>主线程的死循环一直运行是不是特别消耗CPU资源呢？ 其实不然，这里就涉及到Linux pipe/epoll机制，简单说就是在主线程的MessageQueue没有消息时，便阻塞在loop的queue.next()中的nativePollOnce()方法里，详情见Android消息机制1-Handler(Java层)，此时主线程会释放CPU资源进入休眠状态，直到下个消息到达或者有事务发生，通过往pipe管道写端写入数据来唤醒主线程工作。这里采用的epoll机制，是一种IO多路复用机制，可以同时监控多个描述符，当某个描述符就绪(读或写就绪)，则立刻通知相应程序进行读或写操作，本质同步I/O，即读写是阻塞的。 所以说，主线程大多数时候都是处于休眠状态，并不会消耗大量CPU资源。</p>
+<h2>事件分发</h2>
+<p><a href="https://www.jianshu.com/p/5951ebdd2a7e">深入理解事件分发 ViewGroup.mFirstTouchTarget的设计</a></p>
+<blockquote>
+<p>mFirstTouchTarget的作用是什么，记录后续事件派发的目标</p>
+</blockquote>
+<p><a href="https://www.cnblogs.com/jymblog/p/12178527.html">你真的看懂Android事件分发了吗？</a></p>
+<div class="highlight"><pre><span></span><code><span class="c1">//本源码来自 api 28,不同版本略有不同。</span>
+<span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">dispatchTouchEvent</span><span class="p">(</span><span class="n">MotionEvent</span><span class="w"> </span><span class="n">ev</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 第一步：处理拦截</span>
+<span class="w">   </span><span class="kt">boolean</span><span class="w"> </span><span class="n">intercepted</span><span class="p">;</span><span class="w">  </span>
+<span class="w">     </span><span class="c1">// 注意这个条件，后者代表着有子view消费事件。后面会讲</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actionMasked</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MotionEvent</span><span class="p">.</span><span class="na">ACTION_DOWN</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">mFirstTouchTarget</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 子view调用了parent.requestDisallowInterceptTouchEvent干预父布局的拦截，不让它爸拦截它</span>
+<span class="w">       </span><span class="kd">final</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">disallowIntercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">mGroupFlags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">FLAG_DISALLOW_INTERCEPT</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">disallowIntercept</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">             </span><span class="n">intercepted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onInterceptTouchEvent</span><span class="p">(</span><span class="n">ev</span><span class="p">);</span>
+<span class="w">             </span><span class="n">ev</span><span class="p">.</span><span class="na">setAction</span><span class="p">(</span><span class="n">action</span><span class="p">);</span><span class="w"> </span>
+<span class="w">         </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">             </span><span class="n">intercepted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//既不是DOWN事件，mFirstTouchTarget还是null，这种情况挺常见：如果ViewGroup的所有的子View都不消费                //事件，那么当ACTION_MOVE等非DOWN事件到来时，都被拦截了。</span>
+<span class="w">         </span><span class="n">intercepted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 第二步，分发ACTION_DOWN</span>
+<span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">handled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">alreadyDispatchedToNewTouchTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="c1">//注意这个变量,会用到</span>
+<span class="w">   </span><span class="c1">// 不拦截才会分发它，如果拦截了，就不分发ACTION_DOWN了</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">intercepted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//处理DOWN事件，捕获第一个被触摸的mFirstTouchTarget，mFirstTouchTarget很重要，</span>
+<span class="w">        </span><span class="n">保存了消费了ACTION_DOWN事件的子view</span>
+<span class="w">        </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">ev</span><span class="p">.</span><span class="na">getAction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MotionEvent</span><span class="p">.</span><span class="na">ACTION_DOWN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">//遍历所有子view(看源码知子View是按照Z轴排好序的)</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">childrenCount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">//子view如果：1.不包含事件坐标 2. 在动画  则跳过</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">isTransformedTouchPointInView</span><span class="p">()</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">canViewReceivePointerEvents</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="c1">//将事件传递给子view的坐标空间，并且判断该子view是否消费这个触摸事件（分发Down事件）</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dispatchTransformedTouchEvent</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="c1">//将该view加入头节点，并且赋值给mFirstTouchTarget</span>
+<span class="w">                    </span><span class="n">newTouchTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addTouchTarget</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="n">idBitsToAssign</span><span class="p">);</span>
+<span class="w">                    </span><span class="n">alreadyDispatchedToNewTouchTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">//第三步：分发非DOWN事件</span>
+<span class="w">        </span><span class="c1">//如果没有子view捕获ACTION_DOWN，则交给本ViewGroup处理这个事件。我们看到，这里并没有判断是否拦截，</span>
+<span class="w">        </span><span class="c1">//为什么呢？因为如果拦截的话，上面的代码不会执行，就会导致mFirstTouchTarget== null，于是就走下面第一                         //个条件里的逻辑了</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mFirstTouchTarget</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">super</span><span class="p">.</span><span class="na">dispatchTouchEvent</span><span class="p">(</span><span class="n">ev</span><span class="p">);</span><span class="w"> </span><span class="c1">//调用View的dispatchTouchEvent，也就是自己处理</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">//遍历touchTargets链表，依次分发事件</span>
+<span class="w">            </span><span class="n">TouchTarget</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mFirstTouchTarget</span><span class="p">;</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">target</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alreadyDispatchedToNewTouchTarget</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="n">handled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dispatchTransformedTouchEvent</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="n">handled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                  </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">//处理ACTION_UP和CANCEL，手指抬起来以后相关变量重置</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ev</span><span class="p">.</span><span class="na">getAction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MotionEvent</span><span class="p">.</span><span class="na">ACTION_UP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">reset</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">handled</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2>自定义控件</h2>
+<h2>Android和java基本面试题</h2>
+<ul>
+<li><a href="https://blog.csdn.net/zhu592665411/article/details/80617081">LRU算法及编码实现LRU策略缓存</a></li>
+<li><a href="https://blog.csdn.net/qq_39192827/article/details/85611873">Java：强引用，软引用，弱引用和虚引用</a><blockquote>
+<p><strong>强引用</strong>：必不可少的物品，不会被垃圾回收器回收。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不回收这种对象。
+<strong>软引用</strong>:用来描述一些有用但并不是必需的对象，在Java中用java.lang.ref.SoftReference类来表示。对于软引用关联着的对象，<strong><em>只有在内存不足的时候JVM才会回收该对象</em></strong>。
+<strong>弱引用</strong>:用来描述非必需对象的，当JVM进行垃圾回收时，无论内存是否充足，都会回收被弱引用关联的对象。在java中，用java.lang.ref.WeakReference类来表示。</p>
+</blockquote>
+</li>
+<li>断点续传的实现</li>
+<li><a href="https://www.cnblogs.com/yuanblog/p/4441017.html">Java中HashMap的实现原理</a>  </li>
+<li><a href="https://zhuanlan.zhihu.com/p/60702023">ThreadLoacal用法以及原理</a><blockquote>
+<p>ThreadLocal的实现原理是，在每个线程中维护一个Map，键是ThreadLocal类型，值是Object类型。当想获取ThreadLocal的值时，就从当前线程中拿出Map，然后在把ThreadLocal本身作为键从Map中拿出值返回。  </p>
+</blockquote>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/u010647035/article/details/79770534">Java线程之如何分析死锁及避免死锁</a></p>
+</li>
+<li>
+<p><a href="https://juejin.cn/post/6844903917428424717">Java线程池工作原理浅析</a>
+关键类：ThreadPoolExecutor</p>
+</li>
+<li>Binder 跨进程通信机制
+<a href="https://juejin.cn/post/6844903589635162126">写给 Android 应用工程师的 Binder 原理剖析</a>
+<a href="https://blog.csdn.net/qq_30379689/article/details/79451596">Android进阶——Android跨进程通讯机制之Binder、IBinder、Parcel、AIDL</a></li>
+</ul>
+<h2>虚拟机</h2>
+<p><a href="https://www.cnblogs.com/zhanglei93/p/6590609.html">Java虚拟机工作原理</a></p>
+<h2>第三方库源码分析</h2>
+<h3>OKHTTP</h3>
+<p><a href="https://juejin.cn/post/6844904087788453896">面试官：听说你熟悉OkHttp原理？</a>
+OKHttpClient,RealCall,Dispatcher,AsynCall
+1. 请求流程
+2. 分发器(Dispatcher)
+3. 拦截器
+<a href="https://www.jianshu.com/p/ba6e219a0af6">OkHttp之拦截器</a>
+<a href="https://www.jianshu.com/p/5e11962afed2">Android okhttp 刷新token</a>
+4. 缓存
+5. 连接池
+ <a href="https://blog.csdn.net/tangjiean/article/details/51729371">okhttp连接池复用机制</a>
+6. okio
+   <a href="https://square.github.io/okio/">官网</a>
+   <a href="https://blog.csdn.net/zoudifei/article/details/51232711">深入理解okio的优化思想</a>
+   sources和sinks</p>
+<h3>Retrofit</h3>
+<p><a href="https://www.jianshu.com/p/7061714acabe">retrofit源码解析--retrofit创建方法(builder、baseurl、converter...)</a></p>
+<h3>Rxjava</h3>
+<p><a href="https://gank.io/post/560e15be2dca930e00da1083">给 Android 开发者的 RxJava 详解</a></p>
+<ol>
+<li>订阅流程</li>
+</ol>
+<p><img alt="" src="../Othor_Notes/img/rxjava_subscribe.png">
+从下游一层一层往上游订阅，订阅的时候会调用subscribeActual方法，而在这个方法里订阅上游，每订阅一层会创建一个Observer
+，而Observer中持有下游的Observer，当订阅到最顶层的时候，事件创建者开始向下游分发事件比如onNext，onSuccess,往下游传递事件少不了每一层自己创建的Observer。
+测试代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mySingleObserver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">SingleObserver</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSuccess</span><span class="p">(</span><span class="n">t</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;------</span><span class="si">$</span><span class="n">t</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSubscribe</span><span class="p">(</span><span class="n">d</span><span class="p">:</span><span class="w"> </span><span class="n">Disposable?)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;我被订阅了&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onError</span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable?)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">e</span><span class="o">?.</span><span class="na">printStackTrace</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">Single</span><span class="p">.</span><span class="na">just</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">io</span><span class="p">.</span><span class="na">reactivex</span><span class="p">.</span><span class="na">rxjava3</span><span class="p">.</span><span class="na">functions</span><span class="p">.</span><span class="na">Function</span><span class="o">&lt;</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">t</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;---</span><span class="si">$</span><span class="n">t</span><span class="s">&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">            </span><span class="p">})</span>
+<span class="w">            </span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">mySingleObserver</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>首先看一下代码这里面有几个对象，我们分解一下会更容易理解些
+1. Single.just(1)实际上是创建了SingleJust对象，SingleJust继承于Single。
+2. SingleJust.map()创建了SingleMap对象，SingleMap同样是继承于Single
+3. 上面代码最终可以这么看 </p>
+<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="n">SingleJust</span><span class="p">.</span><span class="na">SingleMap</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">mySingleObserver</span><span class="p">)</span>
+</code></pre></div>
+
+<ol>
+<li>subscribe方法是SingleMap对象的方法，也是Single类中的方法</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">public</span><span class="w"> </span><span class="n">final</span><span class="w"> </span><span class="n">void</span><span class="w"> </span><span class="n">subscribe</span><span class="p">(</span><span class="nd">@NonNull</span><span class="w"> </span><span class="n">SingleObserver</span><span class="o">&lt;?</span><span class="w"> </span><span class="k">super</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">observer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Objects</span><span class="p">.</span><span class="na">requireNonNull</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;observer is null&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">observer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RxJavaPlugins</span><span class="p">.</span><span class="na">onSubscribe</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">observer</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">Objects</span><span class="p">.</span><span class="na">requireNonNull</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;The RxJavaPlugins.onSubscribe hook returned a null SingleObserver. Please check the handler provided to RxJavaPlugins.setOnSingleSubscribe for invalid null returns. Further reading: https://github.com/ReactiveX/RxJava/wiki/Plugins&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 6. 接着上面步骤来，它其实调用的SingleMap类的subscribeActual方法</span>
+<span class="w">            </span><span class="n">subscribeActual</span><span class="p">(</span><span class="n">observer</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NullPointerException</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">ex</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Throwable</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Exceptions</span><span class="p">.</span><span class="na">throwIfFatal</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span>
+<span class="w">            </span><span class="n">NullPointerException</span><span class="w"> </span><span class="n">npe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">NullPointerException</span><span class="p">(</span><span class="s">&quot;subscribeActual failed&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">npe</span><span class="p">.</span><span class="na">initCause</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">npe</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+
+<p>SingleMap源码</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SingleMap</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Single</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">SingleSource</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">Function</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mapper</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">SingleMap</span><span class="p">(</span><span class="n">SingleSource</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">Function</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mapper</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 上面订阅的时候，实际上调用的就是这个方法</span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">subscribeActual</span><span class="p">(</span><span class="kd">final</span><span class="w"> </span><span class="n">SingleObserver</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 这个source是SingleJust对象，也就是SingleMap的上游</span>
+<span class="w">        </span><span class="n">source</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">MapSingleObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">mapper</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MapSingleObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">SingleObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">SingleObserver</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+
+<span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">Function</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mapper</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">MapSingleObserver</span><span class="p">(</span><span class="n">SingleObserver</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">Function</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mapper</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="na">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="na">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nd">@Override</span>
+<span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onSubscribe</span><span class="p">(</span><span class="n">Disposable</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">t</span><span class="p">.</span><span class="na">onSubscribe</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nd">@Override</span>
+<span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onSuccess</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">R</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Objects</span><span class="p">.</span><span class="na">requireNonNull</span><span class="p">(</span><span class="n">mapper</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;The mapper function returned a null value.&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Throwable</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Exceptions</span><span class="p">.</span><span class="na">throwIfFatal</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">                </span><span class="n">onError</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">t</span><span class="p">.</span><span class="na">onSuccess</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nd">@Override</span>
+<span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onError</span><span class="p">(</span><span class="n">Throwable</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">t</span><span class="p">.</span><span class="na">onError</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>1.是哪个对象在什么时候创建了子线程，是一种怎样的方式创建的？
+2.子线程又是如何启动的？
+3.上游事件是怎么跑到子线程里执行的？
+4.多次用 subscribeOn 指定上游线程为什么只有第一次有效 ?
+<a href="https://www.jianshu.com/p/3dd582bb10cc">RxJava 是如何实现线程切换的（上）</a></p>
+<h3>Glide</h3>
+<h3>缓存</h3>
+<ul>
+<li><a href="https://blog.csdn.net/guolin_blog/article/details/28863651">Android DiskLruCache完全解析，硬盘缓存的最佳方案</a></li>
+<li><a href="https://blog.csdn.net/lmj623565791/article/details/47251585">Android DiskLruCache 源码解析 硬盘缓存的绝佳方案</a></li>
+</ul>
+<h2>网络</h2>
+<p><a href="https://blog.csdn.net/liuxingrong666/article/details/83869161">HTTPS的数字证书验证原理</a></p>
+<p><a href="https://www.cnblogs.com/daxueba-ITdaren/p/6495468.html">证书锁定Certificate Pinning技术</a></p>
+<p><a href="https://www.jianshu.com/p/7158568e4867">SSL/TLS 握手过程详解</a></p>
+<h2>Android架构</h2>
+<p><a href="">Android 组件化与插件化</a>
+<a href="https://www.jianshu.com/p/1b1d77f58e84">Android彻底组件化方案实践</a></p>
+<h2>测试</h2>
+<p><a href="https://blog.csdn.net/qq_17766199/category_9270906.html">Android单元测试</a></p>
+<h2>优化</h2>
+<p><a href="https://juejin.im/post/5b50b017f265da0f7b2f649c">Android 性能优化最佳实践</a></p>
+<h3>布局优化</h3>
+<ol>
+<li>重绘制</li>
+<li>include、merge和ViewStub</li>
+<li>复杂界面可选择ConstraintLayout，可有效减少层级</li>
+<li>View的绘制频率保证60fps是最佳的， onDraw方法中不要做耗时的任务，也不做过多的循环操作，onDraw()中不要创建新的局部对象。</li>
+</ol>
+<h3>内存优化</h3>
+<ol>
+<li>内存泄露：单例/静态变量造成的内存泄漏，匿名内部类/非静态内部类</li>
+</ol>
+<h2>参考链接</h2>
+<ul>
+<li><a href="https://github.com/sucese/android-open-framework-analysis">Android Open Framework Analysis</a></li>
+<li><a href="https://segmentfault.com/a/1190000016117569">分享一份非常强势的Android面试题</a></li>
+<li><a href="https://github.com/jinguangyue/Android-Advanced-Interview">Android-Advanced-Interview</a></li>
+<li><a href="https://juejin.im/post/5ee48103f265da76d53c2676">最新 Android 面试点梳理，我收藏了你呢？</a></li>
+</ul>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="/kotlinru-men-jiao-cheng-zheng-li.html" rel="bookmark"
+                               title="Permalink to Kotlin入门教程整理">Kotlin入门教程整理</a></h1>
+                    </header>
+
+                    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-01-02T14:23:38+08:00">
+                Published: Thu 02 January 2020
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/manymore13.html">manymore13</a>
+                </address>
+        <p>In <a href="/category/android_notes.html">Android_Notes</a>.</p>
+        
+</footer><!-- /.post-info -->                        <ul>
+<li>Android</li>
+<li>Kotlin
+cover: https://raw.githubusercontent.com/manymore13/img/main/huangshan.jpg</li>
+</ul>
+<hr>
+<h2>Kotlin基础语法</h2>
+<blockquote>
+<p>在 Kotlin 中，所有东西都是对象</p>
+</blockquote>
+<h3>注释</h3>
+<p>与大多数现代语言一样，Kotlin 支持单行（或行末）与多行（块）注释 …</p>
+                        <a class="readmore" href="/kotlinru-men-jiao-cheng-zheng-li.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="/ndkbian-cheng-bi-ji.html" rel="bookmark"
+                               title="Permalink to NDK编程笔记">NDK编程笔记</a></h1>
+                    </header>
+
+                    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-01-02T14:23:38+08:00">
+                Published: Thu 02 January 2020
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/manymore13.html">manymore13</a>
+                </address>
+        <p>In <a href="/category/android_notes.html">Android_Notes</a>.</p>
+        
+</footer><!-- /.post-info -->                        <ul>
+<li>技术</li>
+<li>Android
+tags: </li>
+<li>Android</li>
+<li>NDK</li>
+</ul>
+<hr>
+<h2><a href="https://gitee.com/mirrors/ffmpeg">FFMpeg国内镜像</a></h2>
+<h2>参考链接</h2>
+<ol>
+<li><a href="https://developer.android.google.cn/ndk/guides">NDK指南</a></li>
+<li><a href="https://developer.android.google.cn/ndk/reference">NDK库Api</a></li>
+<li><a href="https://developer.android.google.cn/ndk/samples">官方例子</a></li>
+<li><a href="https://blog.csdn.net/han1202012/category_9493908.html">Android NDK 开发-韩曙亮</a></li>
+<li><a href="https://blog.csdn.net/u011609853/article/details/105648099">NDK r21编译FFmpeg 4.2.2（x86、x86_64、armv7、armv8）</a></li>
+<li><a href="https://github.com/Javernaut/ffmpeg-android-maker">ffmpeg-android-maker</a>,<a href="https://github.com/Javernaut/ffmpeg-android-maker/wiki/Setting-the-FFmpeg-version">wiki</a>
+推荐使用这个脚本编译FFmpeg</li>
+</ol>
+<div class="highlight"><pre><span></span><code>./ffmpeg-android-maker.sh<span class="w"> </span>-abis<span class="o">=</span>x86_64 …</code></pre></div>
+                        <a class="readmore" href="/ndkbian-cheng-bi-ji.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
+                    </ol><!-- /#posts-list -->
+                    </section><!-- /#content -->
+                <section id="extras" class="body">
+                                <div class="blogroll">
+                                        <h2>links</h2>
+                                        <ul>
+                                                        <li><a href="https://getpelican.com/">Pelican</a></li>
+                                                        <li><a href="https://www.python.org/">Python.org</a></li>
+                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                        <li><a href="#">You can modify those links in your config file</a></li>
+                                        </ul>
+                                </div><!-- /.blogroll -->
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+
+                                                        <li><a href="#">You can add links in your config file</a></li>
+                                                        <li><a href="#">Another social link</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>

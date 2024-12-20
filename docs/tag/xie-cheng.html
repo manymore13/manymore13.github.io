@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>manymore13'notes - 协程</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">manymore13'notes</a></h1>
+                        <nav><ul>
+                                                <li><a href="/category/android_notes.html">Android_Notes</a></li>
+                                                <li><a href="/category/financial_notes.html">Financial_Notes</a></li>
+                                                <li><a href="/category/gu-zhi-gong-ju.html">估值工具</a></li>
+                                                <li><a href="/category/java_notes.html">Java_Notes</a></li>
+                                                <li><a href="/category/ji-suan-ji.html">计算机</a></li>
+                                                <li><a href="/category/jie-zhi.html">价值</a></li>
+                                                <li><a href="/category/life_notes.html">Life_Notes</a></li>
+                                                <li><a href="/category/python_notes.html">Python_Notes</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+
+                <aside id="featured" class="body">
+                    <article>
+                        <h1 class="entry-title"><a href="/xie-cheng-shi-yong-zhi-nan.html">协程使用指南</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-01-02T15:23:43+08:00">
+                Published: Thu 02 January 2020
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/manymore13.html">manymore13</a>
+                </address>
+        <p>In <a href="/category/ji-suan-ji.html">计算机</a>.</p>
+<p>tags: <a href="/tag/android.html">Android</a> <a href="/tag/xie-cheng.html">协程</a> </p>        
+</footer><!-- /.post-info --><h1>协程使用指南</h1>
+<h2>协程介绍</h2>
+<blockquote>
+<p>协程是一种并发设计模式，是一套基于线程来实现的API，可以看作是轻量级线程。
+协程的一个好处是，当涉及到开发人员时，编写非阻塞代码与编写阻塞代码基本相同。编程模型本身并没有真正改变。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="err">&#39;</span><span class="n">org</span><span class="p">.</span><span class="na">jetbrains</span><span class="p">.</span><span class="na">kotlinx</span><span class="p">:</span><span class="n">kotlinx</span><span class="o">-</span><span class="n">coroutines</span><span class="o">-</span><span class="n">core</span><span class="p">:</span><span class="m">1.1</span><span class="p">.</span><span class="m">1</span><span class="err">&#39;</span>
+<span class="c1">// 可选 Android中使用协程</span>
+<span class="n">implementation</span><span class="w"> </span><span class="err">&#39;</span><span class="n">org</span><span class="p">.</span><span class="na">jetbrains</span><span class="p">.</span><span class="na">kotlinx</span><span class="p">:</span><span class="n">kotlinx</span><span class="o">-</span><span class="n">coroutines</span><span class="o">-</span><span class="n">android</span><span class="p">:</span><span class="m">1.1</span><span class="p">.</span><span class="m">1</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<h2>协程的用法</h2>
+<h3>创建一个协程，并执行</h3>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.*</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 在后台启动一个新的协程并执行</span>
+<span class="w">    </span><span class="n">GlobalScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="c1">// 非阻塞的等待 1 秒钟（默认时间单位是毫秒）</span>
+<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">1000L</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="c1">// 在延迟后打印输出</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;World!&quot;</span><span class="p">)</span><span class="w"> </span>
+
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// 协程已在等待时主线程还在继续</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello,&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">// 阻塞主线程 2 秒钟来保证 JVM 存活</span>
+<span class="w">    </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">2000L</span><span class="p">)</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>代码运行的结果：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Hello</span><span class="p">,</span>
+<span class="n">World</span><span class="o">!</span>
+</code></pre></div>
+
+<p>我们使用<strong>GlobalScope.launch</strong>创建一个协程，并执行它，后面大括号里包着的是协程要执行的内容，类似于线程中的run方法体。</p>
+<ul>
+<li><strong>delay</strong>方法只能在协程内部使用，它用于挂起协程，但是不会阻塞当前协程所在的线程。</li>
+<li><strong>Thread.sleep</strong>会阻塞当前线程，也就是说当前线程被阻塞在那暂时不能做别的事情了</li>
+</ul>
+<hr>
+<p>关于协程的方法只能在协程体里面执行，所以为了方便测试协程代码，我准备使用<strong>runBlocking</strong>把main方法包起来。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/*</span>
+<span class="cm"> *显式指定了其返回类型 Unit，</span>
+<span class="cm"> * 因为在 Kotlin 中 main 函数必须返回 Unit 类型。</span>
+<span class="cm"> */</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 打印当前线程名称</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">name</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>执行结果：</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span>
+</code></pre></div>
+
+<p>runBlocking方法运行一个新的协程并且阻塞当前线程，上面的代码中包裹的是main方法，所以阻塞的是main线程</p>
+<h3>协程挂起</h3>
+<blockquote>
+<p>我们用suspend修饰符来标记函数
+挂起函数只被允许在协程或另一个挂起函数中调用</p>
+</blockquote>
+<p>我们先看一个先获取token，再登录的例子，里面用到挂起函数</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.*</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.system.measureTimeMillis</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * main函数</span>
+<span class="cm"> */</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measureTimeMillis</span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getToken</span><span class="p">()</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">loginInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">login</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="n">loginInfo</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Completed in </span><span class="si">$</span><span class="n">time</span><span class="s"> ms&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 模拟接口获取token</span>
+<span class="cm"> */</span>
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getToken</span><span class="p">():</span><span class="kt">String</span><span class="p">{</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="m">1000L</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;woshitoken&quot;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 模拟接口登录</span>
+<span class="cm"> */</span>
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">token</span><span class="p">:</span><span class="kt">String</span><span class="p">):</span><span class="kt">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="m">1000L</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;my token is: </span><span class="si">$</span><span class="n">token</span><span class="s"> , login success&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>执行结果：</p>
+<div class="highlight"><pre><span></span><code><span class="n">my</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="k">is</span><span class="p">:</span><span class="w"> </span><span class="n">woshitoken</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="n">success</span>
+<span class="n">Completed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2012</span><span class="w"> </span><span class="n">ms</span>
+</code></pre></div>
+
+<ul>
+<li>我对挂起的理解：<blockquote>
+<p>在上面的代码中有两个挂起函数getToken和login，当程序逻辑走到挂起函数getToken()那里，当前协程被挂起,getToken()被抛出去执行，你可以指定在哪一个线程池中执行，当getToken在外部执行完后再恢复刚才挂起的协程，协程代码继续执行。</p>
+</blockquote>
+</li>
+</ul>
+<h3>async 并发</h3>
+<blockquote>
+<p>在概念上，async 就类似于 launch。它启动了一个单独的协程，这是一个轻量级的线程并与其它所有的协程一起并发的工作。不同之处在于 launch 返回一个 Job 并且不附带任何结果值，而 async 返回一个 Deferred —— 一个轻量级的非阻塞 future， 这代表了一个将会在稍后提供结果的 promise。你可以使用 .await() 在一个延期的值上得到它的最终结果， 但是 Deferred 也是一个 Job，所以如果需要的话，你可以取消它。<a href="https://www.kotlincn.net/docs/reference/coroutines/composing-suspending-functions.html#%E4%BD%BF%E7%94%A8-async-%E5%B9%B6%E5%8F%91">转自 kotlincn.net</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.*</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.system.*</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runBlocking</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measureTimeMillis</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">doSomethingUsefulOne</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">two</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">doSomethingUsefulTwo</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;The answer is </span><span class="si">${</span><span class="n">one</span><span class="p">.</span><span class="na">await</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">two</span><span class="p">.</span><span class="na">await</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Completed in </span><span class="si">$</span><span class="n">time</span><span class="s"> ms&quot;</span><span class="p">)</span><span class="w">    </span>
+<span class="p">}</span>
+
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">doSomethingUsefulOne</span><span class="p">():</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 假设我们在这里做了些有用的事</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="m">1000L</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">13</span>
+<span class="p">}</span>
+
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">doSomethingUsefulTwo</span><span class="p">():</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 假设我们在这里也做了些有用的事</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="m">1000L</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">29</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>运行结果：</p>
+<div class="highlight"><pre><span></span><code><span class="n">The</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="m">42</span>
+<span class="n">Completed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1055</span><span class="w"> </span><span class="n">ms</span>
+</code></pre></div>
+
+<p>两个协程是并发执行。
+<a href="https://www.kotlincn.net/docs/reference/coroutines/composing-suspending-functions.html#%E6%83%B0%E6%80%A7%E5%90%AF%E5%8A%A8%E7%9A%84-async">惰性启动的-async</a></p>
+<h2>Flow</h2>
+<h2>参考链接</h2>
+<p><a href="https://www.kotlincn.net/docs/reference/coroutines/coroutines-guide.html">官方协程指南</a>
+<a href="https://kaixue.io/kotlin-coroutines-2/">kaixue</a>
+<a href="https://juejin.im/post/6844903921337516040">如何正确的在 Android 上使用协程 ？</a>
+<a href="https://www.bennyhuo.com/2020/03/14/coroutine-flow/">协程博客</a></p>                    </article>
+                </aside><!-- /#featured -->
+                <section id="extras" class="body">
+                                <div class="blogroll">
+                                        <h2>links</h2>
+                                        <ul>
+                                                        <li><a href="https://getpelican.com/">Pelican</a></li>
+                                                        <li><a href="https://www.python.org/">Python.org</a></li>
+                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                        <li><a href="#">You can modify those links in your config file</a></li>
+                                        </ul>
+                                </div><!-- /.blogroll -->
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+
+                                                        <li><a href="#">You can add links in your config file</a></li>
+                                                        <li><a href="#">Another social link</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
