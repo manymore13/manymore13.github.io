@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Android开源库 &mdash; manymore13'notes</title>
+  <meta name="author" content="manymore13">
+
+
+
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="/favicon.png" rel="icon">
+
+  <link href="/theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">manymore13'notes</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+<ul class="main-navigation">
+      <li >
+        <a href="/category/android_notes.html">Android_notes</a>
+      </li>
+      <li >
+        <a href="/category/financial_notes.html">Financial_notes</a>
+      </li>
+      <li >
+        <a href="/category/gu-zhi-gong-ju.html">估值工具</a>
+      </li>
+      <li >
+        <a href="/category/java_notes.html">Java_notes</a>
+      </li>
+      <li class="active">
+        <a href="/category/ji-suan-ji.html">计算机</a>
+      </li>
+      <li >
+        <a href="/category/jie-zhi.html">价值</a>
+      </li>
+      <li >
+        <a href="/category/life_notes.html">Life_notes</a>
+      </li>
+      <li >
+        <a href="/category/python_notes.html">Python_notes</a>
+      </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Android开源库</h1>
+    <p class="meta">
+<time datetime="2020-02-03T11:00:00+08:00" pubdate>Mon 03 February 2020</time>    </p>
+</header>
+
+  <div class="entry-content"><h1>Android开源库</h1>
+<h2><a href="https://square.github.io/retrofit/">Retrofit</a></h2>
+<blockquote>
+<p>A type-safe HTTP client for Android and Java</p>
+</blockquote>
+<h2><a href="https://github.com/ReactiveX/RxJava">RxJava</a></h2>
+<blockquote>
+<p>RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.</p>
+</blockquote>
+<p><a href="https://gank.io/post/560e15be2dca930e00da1083">给 Android 开发者的 RxJava 详解</a></p>
+<h2><a href="https://github.com/JessYanCoding/AndroidAutoSize">AndroidAutoSize</a></h2>
+<blockquote>
+<p>今日头条屏幕适配方案终极版，一个极低成本的 Android 屏幕适配方案</p>
+</blockquote>
+<h2>UI</h2>
+<p><a href="https://github.com/Tencent/QMUI_Android">QMUI_Android</a></p>
+<blockquote>
+<p>提高 Android UI 开发效率的 UI 库</p>
+</blockquote>
+<p><a href="https://github.com/Jacksgong/JKeyboardPanelSwitch">JKeyboardPanelSwitch</a></p>
+<blockquote>
+<p>For resolve the layout conflict when keybord &amp; panel are switching (Android键盘面板冲突 布局闪动处理方案)</p>
+</blockquote>
+<p><a href="https://github.com/drakeet/MultiType">MultiType</a></p>
+<blockquote>
+<p>An Android library makes it easier and more flexible to create multiple types for RecyclerViews.</p>
+</blockquote>
+<h2>优化</h2>
+<p><a href="https://blog.csdn.net/gs344937933/article/details/89815855">Android卡顿优化--卡顿检测</a>
+<a href="https://github.com/markzhai/AndroidPerformanceMonitor/blob/master/README_CN.md">AndroidPerformanceMonitor</a> <a href="http://blog.zhaiyifan.cn/2016/01/16/BlockCanaryTransparentPerformanceMonitor/">框架原理</a>
+<a href="https://square.github.io/leakcanary/getting_started/">leakcanary</a></p>
+<blockquote>
+<p>SoftReference类、WeakReference类和PhantomReference类，它们分别代表软引用、弱引用和虚引用。ReferenceQueue类表示引用队列，它可以和这三种引用类联合使用，比如说：如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用放到与之关联的ReferenceQueue中，所以我们如果在对象该回收的时候去检测队列如果发现队列中有这个对象的若应用说明这个对象被正常回收了，如果检测是发现没有对象的弱引用不在说明对象没有被正常回收就是发生了内存泄漏。但是实际操作中在我们认为对象该被回收的时候实际上可能有一定的延迟或者并没有发生GC，所以需要我们给他一定的回收时间和重试时间或者手动触发一下GC(不一定执行)。
+<a href="https://blog.csdn.net/u011148116/article/details/106762665">Android内存泄漏-LeakCanary源码原理分析</a></p>
+</blockquote>
+<p><a href="http://facebook.github.io/stetho/">Stetho官网</a> <a href="https://github.com/facebook/stetho">Github源码</a>
+Stetho是一个Android应用调试工具。集成后，开发人员可以通过Chrome的开发工具查看App相关的信息和调试。<a href="chrome://inspect">chrome://inspect</a></p>
+<h2>架构</h2>
+<p><a href="https://blog.csdn.net/jinfulin/article/details/80421927">gradle配置优化及dependencies中各种依赖方式说明</a></p>
+<blockquote>
+<p>gradle使用，变量使用
+<a href="https://blog.csdn.net/u012982629/article/details/81121717">gradle使用技巧</a></p>
+</blockquote></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        manymore13
+    </span>
+  </span>
+<time datetime="2020-02-03T11:00:00+08:00" pubdate>Mon 03 February 2020</time>  <span class="categories">
+    <a class='category' href='/category/ji-suan-ji.html'>计算机</a>
+  </span>
+  <span class="categories">
+    <a class="category" href="/tag/android.html">Android</a>,    <a class="category" href="/tag/kai-yuan.html">开源</a>  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="/ji-zhu-wen-zhang-sou-ji.html">技术文章搜集</a>
+      </li>
+      <li class="post">
+          <a href="/gu-zhi-gong-ju.html">估值工具</a>
+      </li>
+      <li class="post">
+          <a href="/pa-chong-bi-ji.html">爬虫笔记</a>
+      </li>
+      <li class="post">
+          <a href="/cai-wu-bao-biao.html">财务报表</a>
+      </li>
+      <li class="post">
+          <a href="/tou-zi-ji-si-lu.html">投资集思录</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="/category/android_notes.html">Android_Notes</a></li>
+        <li><a href="/category/financial_notes.html">Financial_Notes</a></li>
+        <li><a href="/category/gu-zhi-gong-ju.html">估值工具</a></li>
+        <li><a href="/category/java_notes.html">Java_Notes</a></li>
+        <li><a href="/category/ji-suan-ji.html">计算机</a></li>
+        <li><a href="/category/jie-zhi.html">价值</a></li>
+        <li><a href="/category/life_notes.html">Life_Notes</a></li>
+        <li><a href="/category/python_notes.html">Python_Notes</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="/tag/android.html">Android</a>,    <a href="/tag/sou-ji.html">搜集</a>,    <a href="/tag/gu-zhi.html">估值</a>,    <a href="/tag/gong-ju.html">工具</a>,    <a href="/tag/li-cai.html">理财</a>,    <a href="/tag/jin-rong.html">金融</a>,    <a href="/tag/uml.html">UML</a>,    <a href="/tag/kai-yuan.html">开源</a>,    <a href="/tag/du-shu.html">读书</a>,    <a href="/tag/xie-cheng.html">协程</a>  </section>
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="#" target="_blank">You can add links in your config file</a></li>
+            <li><a href="#" target="_blank">Another social link</a></li>
+        </ul>
+    </section>
+    <section>
+        <h1>Blogroll</h1>
+        <ul>
+            <li><a href="https://getpelican.com/" target="_blank">Pelican</a></li>
+            <li><a href="https://www.python.org/" target="_blank">Python.org</a></li>
+            <li><a href="https://palletsprojects.com/p/jinja/" target="_blank">Jinja2</a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+    </section>
+
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2020&ndash;2023  manymore13 &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="/theme/js/modernizr-2.0.js"></script>
+  <script src="/theme/js/ender.js"></script>
+  <script src="/theme/js/octopress.js" type="text/javascript"></script>
+</body>
+</html>
