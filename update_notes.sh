@@ -34,8 +34,8 @@ rm -rf ../../temp
 # 提交和推送更改
 echo "------------------"
 git branch
-git config --global user.name "action"
-git config --global user.email "action@qq.com"
+git config --local user.name "github-actions[bot]"
+git config --local user.email "github-actions[bot]@users.noreply.github.com"
 git add .
-git commit -m "Automated update notes" || echo "No changes to commit"
+git commit -m "Automated update notes $(date)" || echo "No changes to commit"
 git push origin gh-pages
