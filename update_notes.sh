@@ -12,6 +12,9 @@ rm -rf ../temp
 mkdir -p ../temp
 cp -r ./* ../temp
 
+git clone https://github.com/manymore13/manymore13.github.io.git
+cd manymore13.github.io
+
 git checkout gh-pages
 
 # 确保 content/ 目录存在
@@ -20,13 +23,13 @@ mkdir -p content
 # 清理旧文件并复制新内容
 rm -rf docs/*
 rm -rf content/*
-cp -r ../temp/* ./content/
+cp -r ../../temp/* ./content/
 
 # 生成静态网站
 pelican content
 
 # 清理默认
-rm -rf ../temp
+rm -rf ../../temp
 
 # 提交和推送更改
 echo "------------------"
